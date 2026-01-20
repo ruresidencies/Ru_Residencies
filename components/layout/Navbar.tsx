@@ -50,8 +50,7 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             
             {/* BRAND - Enhanced with animation */}
-            <Link 
-              href="/" 
+            <div 
               className="
                 flex items-center gap-4 
                 group cursor-pointer
@@ -100,7 +99,7 @@ export default function Navbar() {
                   NUGEGODA
                 </span>
               </div>
-            </Link>
+            </div>
 
             {/* DESKTOP NAV LINKS - Enhanced with hover effects */}
             <nav className="hidden lg:flex items-center gap-10">
@@ -110,16 +109,13 @@ export default function Navbar() {
                   href={item.href}
                   isActive={activeLink === item.href}
                   onHover={() => setActiveLink(item.href)}
-                >
-                  {item.label}
-                </NavLink>
+                />
               ))}
             </nav>
 
             {/* CTA BUTTON - Premium styling */}
             <div className="hidden lg:flex items-center gap-6">
-              <Link
-                href="/contact"
+              <div
                 className="
                   group relative
                   inline-flex items-center
@@ -136,6 +132,7 @@ export default function Navbar() {
                   hover:text-white
                   hover:shadow-2xl
                   border border-gray-300
+                  cursor-pointer
                 "
                 onMouseEnter={() => setActiveLink('contact')}
               >
@@ -148,7 +145,7 @@ export default function Navbar() {
                     →
                   </span>
                 </span>
-              </Link>
+              </div>
             </div>
 
             {/* MOBILE MENU BUTTON */}
@@ -199,9 +196,8 @@ export default function Navbar() {
         `}>
           <div className="px-6 py-8 space-y-6">
             {navItems.map((item) => (
-              <Link
+              <div
                 key={item.href}
-                href={item.href}
                 className="
                   block
                   text-lg font-light text-gray-700
@@ -210,14 +206,14 @@ export default function Navbar() {
                   transition-all duration-300
                   hover:text-gray-900 hover:pl-4
                   hover:border-gray-300
+                  cursor-pointer
                 "
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
-              </Link>
+              </div>
             ))}
-            <Link
-              href="/contact"
+            <div
               className="
                 block w-full
                 rounded-xl
@@ -230,11 +226,12 @@ export default function Navbar() {
                 hover:scale-[1.02]
                 active:scale-[0.98]
                 shadow-lg
+                cursor-pointer
               "
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Schedule a Viewing
-            </Link>
+            </div>
           </div>
         </div>
       </header>
@@ -253,18 +250,28 @@ export default function Navbar() {
 
 function NavLink({
   href,
-  children,
   isActive,
   onHover,
 }: {
   href: string
-  children: React.ReactNode
+  children?: React.ReactNode
   isActive?: boolean
   onHover?: () => void
 }) {
+  // Use the label from the navItems array
+  const getLabel = () => {
+    const navItems = [
+      { href: '/residences', label: 'Residences' },
+      { href: '/amenities', label: 'Amenities' },
+      { href: '/location', label: 'Location' },
+      { href: '/gallery', label: 'Gallery' },
+    ]
+    const item = navItems.find(item => item.href === href)
+    return item ? item.label : ''
+  }
+
   return (
-    <Link
-      href={href}
+    <div
       className="
         relative
         text-sm font-light
@@ -274,6 +281,7 @@ function NavLink({
         hover:text-gray-900
         group
         py-2
+        cursor-pointer
       "
       onMouseEnter={onHover}
     >
@@ -282,7 +290,7 @@ function NavLink({
         transition-all duration-500
         ${isActive ? 'text-gray-900' : ''}
       `}>
-        {children}
+        {getLabel()}
       </span>
       
       {/* Animated underline */}
@@ -305,6 +313,6 @@ function NavLink({
         transition-opacity duration-500
         -z-10
       " />
-    </Link>
+    </div>
   )
 }

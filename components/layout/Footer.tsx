@@ -231,11 +231,31 @@ const Footer = () => {
           {/* Copyright */}
           <div className="text-center lg:text-left space-y-2">
             <p className="text-ink-muted text-sm">
-              © Copyright {new Date().getFullYear()} Rure Residencies. All Rights Reserved.
+              © Copyright {new Date().getFullYear()} Ru Residencies. All Rights Reserved.
             </p>
             <p className="text-ink-muted/60 text-xs">
               Designed with excellence by{' '}
-              <span className="text-accent-gold font-medium">caelusk digital</span>
+              <motion.a
+                href="https://caelusk.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-gold font-medium hover:text-accent-goldDark transition-colors duration-300 inline-flex items-center gap-1 group"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="relative">
+                  caelusk digital
+                  <span className="absolute bottom-0 left-0 w-0 h-px bg-accent-gold group-hover:w-full transition-all duration-300"></span>
+                </span>
+                <svg 
+                  className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </motion.a>
             </p>
           </div>
 
@@ -272,7 +292,7 @@ const Footer = () => {
           <span>Live</span>
         </div>
         <span>•</span>
-        <span>Premium Luxury Real Estate Platform</span>
+        <span>Ru Residencies</span>
       </div>
     </footer>
   );

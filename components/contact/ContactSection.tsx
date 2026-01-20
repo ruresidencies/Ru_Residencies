@@ -42,33 +42,6 @@ export default function ContactSection() {
     });
   };
 
-  const Features = () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-      {[
-        { icon: Shield, title: 'Privacy Guaranteed', desc: '100% confidential luxury consultation' },
-        { icon: Zap, title: 'Fast Response', desc: 'Guaranteed response within 2 hours' },
-        { icon: Award, title: 'Premium Service', desc: 'Dedicated luxury property advisors' },
-      ].map((feature, idx) => (
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: idx * 0.1 }}
-          className="group relative p-6 rounded-2xl bg-white border border-line hover:border-navy-600/30 transition-all duration-500 hover:scale-[1.02] shadow-sm hover:shadow-md"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-navy-600/5 via-transparent to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-          <div className="relative">
-            <div className="inline-flex p-3 rounded-xl bg-gradient-to-r from-navy-700/10 to-blue-800/10 mb-4">
-              <feature.icon className="w-6 h-6 text-navy-700" />
-            </div>
-            <h4 className="text-lg font-semibold text-navy-900 mb-2">{feature.title}</h4>
-            <p className="text-sm text-navy-600">{feature.desc}</p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  );
-
   return (
     <section className="relative py-24 bg-gradient-to-b from-base-offwhite via-white to-base-offwhite">
       {/* Background decorative elements - Navy & Gold */}
@@ -97,8 +70,6 @@ export default function ContactSection() {
             Direct access to our luxury property specialists. Experience white-glove service reserved for discerning clients.
           </p>
         </motion.div>
-
-        <Features />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Column - Contact Information */}
@@ -386,6 +357,7 @@ export default function ContactSection() {
                       type="submit"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      transition={{ type: 'tween' as const }}
                       className={`w-full py-4 rounded-lg font-semibold transition-all duration-500 relative overflow-hidden group ${
                         isSubmitted 
                           ? 'bg-emerald-500 text-white' 
@@ -457,7 +429,7 @@ export default function ContactSection() {
                 </div>
               </div>
               <div>
-                <h4 className="text-xl font-serif text-navy-900 mb-1">Rure Residencies</h4>
+                <h4 className="text-xl font-serif text-navy-900 mb-1">Ru Residencies</h4>
                 <p className="text-sm text-navy-600">Redefining Luxury Living Standards Worldwide</p>
               </div>
             </div>
