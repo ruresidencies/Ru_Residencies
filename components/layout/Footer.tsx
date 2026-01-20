@@ -2,179 +2,277 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { FaFacebook, FaClock, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFacebook, FaClock, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChevronUp } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
-  const logoRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Logo float animation
-    const animateLogo = () => {
-      if (logoRef.current) {
-        logoRef.current.style.transform = `translateY(${Math.sin(Date.now() / 1000) * 5}px)`;
-      }
-    };
-
-    const animationId = setInterval(animateLogo, 16);
-    return () => clearInterval(animationId);
-  }, []);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
-    <footer className="relative bg-ink-primary text-base-white overflow-hidden">
-      {/* Animated background elements */}
+    <footer className="relative bg-gradient-to-b from-base-offwhite to-white text-ink-primary overflow-hidden">
+      {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent-gold/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-gold/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-accent-gold/5 to-accent-goldDark/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-l from-accent-gold/5 to-accent-goldDark/10 rounded-full blur-3xl" />
         
-        {/* Shimmer effect */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent-gold to-transparent animate-shimmer" />
+        {/* Top border */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-gold/30 to-transparent" />
       </div>
 
       <div className="relative container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           {/* Logo & Brand Section */}
-          <div className="space-y-8">
-            <div 
-              ref={logoRef}
-              className="relative w-48 h-48 mx-auto lg:mx-0 transition-transform duration-300 hover-3d will-change-transform"
-              style={{ transition: 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <motion.div 
+              className="relative w-48 h-48 mx-auto lg:mx-0"
+              animate={{ 
+                y: [0, -8, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
             >
               <Image
                 src="/images/ru residencies logo (1).png"
                 alt="RU Residencies Luxury Living"
                 fill
-                className="object-contain drop-shadow-2xl"
+                className="object-contain drop-shadow-lg"
                 sizes="(max-width: 768px) 192px, 256px"
                 priority
               />
               
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-gold/20 to-transparent rounded-full blur-xl" />
-            </div>
+              {/* Subtle glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-gold/10 to-transparent rounded-full blur-lg" />
+            </motion.div>
             
-            <div ref={textRef} className="space-y-4 animate-slideUp">
+            <div className="space-y-4">
               <h3 className="text-2xl font-serif tracking-luxury text-center lg:text-left">
                 Elevating Urban Living
               </h3>
-              <p className="text-ink-muted leading-relaxed text-center lg:text-left">
+              <p className="text-ink-secondary leading-relaxed text-center lg:text-left">
                 Redefining luxury living in Colombo with unparalleled craftsmanship 
                 and sophisticated design.
               </p>
+              
+              {/* Trust indicators */}
+              <div className="flex items-center justify-center lg:justify-start gap-4 pt-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-accent-gold rounded-full animate-pulse" />
+                  <span className="text-sm text-ink-muted">Premium Quality</span>
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Information */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-serif tracking-luxury text-center lg:text-left">
-              Connect With Us
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <h3 className="text-xl font-semibold text-ink-primary text-center lg:text-left">
+              Contact Information
             </h3>
             
             <div className="space-y-6">
-              <div className="flex items-center space-x-4 group">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-accent-gold/20 rounded-full blur-sm group-hover:blur-md transition-all duration-300" />
-                  <FaMapMarkerAlt className="relative text-accent-gold text-xl z-10 group-hover:scale-110 transition-transform duration-300" />
-                </div>
-                <div>
-                  <p className="font-semibold">Location</p>
-                  <p className="text-ink-muted group-hover:text-base-white transition-colors duration-300">
-                    Chapel Lane, Nugegoda
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4 group">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-accent-gold/20 rounded-full blur-sm group-hover:blur-md transition-all duration-300" />
-                  <FaPhone className="relative text-accent-gold text-xl z-10 group-hover:scale-110 transition-transform duration-300" />
-                </div>
-                <div>
-                  <p className="font-semibold">Telephone</p>
-                  <a 
-                    href="tel:+94773711444"
-                    className="text-ink-muted hover:text-accent-gold transition-colors duration-300 hover:underline"
-                  >
-                    +94 773 711 444
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4 group">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-accent-gold/20 rounded-full blur-sm group-hover:blur-md transition-all duration-300" />
-                  <FaEnvelope className="relative text-accent-gold text-xl z-10 group-hover:scale-110 transition-transform duration-300" />
-                </div>
-                <div>
-                  <p className="font-semibold">Email</p>
-                  <a 
-                    href="mailto:sales@ruresidencieslk.com"
-                    className="text-ink-muted hover:text-accent-gold transition-colors duration-300 hover:underline"
-                  >
-                    sales@ruresidencieslk.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4 group">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-accent-gold/20 rounded-full blur-sm group-hover:blur-md transition-all duration-300" />
-                  <FaClock className="relative text-accent-gold text-xl z-10 group-hover:scale-110 transition-transform duration-300" />
-                </div>
-                <div>
-                  <p className="font-semibold">Working Hours</p>
-                  <p className="text-ink-muted group-hover:text-base-white transition-colors duration-300">
-                    9:00 AM - 5:00 PM
-                  </p>
-                </div>
-              </div>
+              {[
+                { 
+                  icon: FaMapMarkerAlt, 
+                  label: "Location",
+                  value: "Chapel Lane, Nugegoda",
+                  href: null
+                },
+                { 
+                  icon: FaPhone, 
+                  label: "Telephone",
+                  value: "+94 773 711 444",
+                  href: "tel:+94773711444"
+                },
+                { 
+                  icon: FaEnvelope, 
+                  label: "Email",
+                  value: "sales@ruresidencieslk.com",
+                  href: "mailto:sales@ruresidencieslk.com"
+                },
+                { 
+                  icon: FaClock, 
+                  label: "Working Hours",
+                  value: "9:00 AM - 5:00 PM",
+                  href: null
+                },
+              ].map((contact, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ x: 5 }}
+                  className="flex items-center gap-4 group"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-accent-gold/10 rounded-full blur-sm group-hover:bg-accent-gold/20 transition-all duration-300" />
+                    <contact.icon className="relative text-accent-gold text-lg z-10" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-ink-primary text-sm">{contact.label}</p>
+                    {contact.href ? (
+                      <a 
+                        href={contact.href}
+                        className="text-ink-secondary hover:text-accent-gold transition-colors duration-300 text-base"
+                      >
+                        {contact.value}
+                      </a>
+                    ) : (
+                      <p className="text-ink-secondary text-base">{contact.value}</p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Social & Copyright */}
-          <div className="space-y-8">
-            <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-serif tracking-luxury mb-6">
-                Follow Our Journey
+          {/* Quick Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <h3 className="text-xl font-semibold text-ink-primary text-center lg:text-left">
+              Quick Links
+            </h3>
+            
+            <div className="space-y-3">
+              {['Premium Properties', 'Investment Portfolio', 'Virtual Tours', 'Client Testimonials', 'About Us', 'Strategic Locations'].map((link, idx) => (
+                <motion.a
+                  key={idx}
+                  href="#"
+                  whileHover={{ x: 5, color: '#a8843a' }}
+                  className="block text-ink-secondary hover:text-accent-gold transition-colors duration-300 group"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-accent-gold/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span>{link}</span>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Social & Newsletter */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-ink-primary text-center lg:text-left">
+                Stay Connected
               </h3>
               
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-3 bg-base-white/5 hover:bg-base-white/10 px-6 py-3 rounded-full transition-all duration-300 group glass-effect"
-              >
-                <FaFacebook className="text-accent-gold text-2xl group-hover:scale-125 transition-transform duration-300" />
-                <span className="font-medium group-hover:text-accent-gold transition-colors duration-300">
-                  Join Our Community
-                </span>
-              </a>
-            </div>
-
-            <div className="pt-8 border-t border-line/20">
-              <p className="text-ink-muted text-sm text-center lg:text-left">
-                © Copyright {new Date().getFullYear()} . All Rights Reserved
-              </p>
-              <p className="text-ink-muted/60 text-xs mt-2 text-center lg:text-left">
-                Designed with excellence by{' '}
-                <span className="text-accent-gold font-medium">caelusk digital</span>
-              </p>
+              {/* Social Media */}
+              <div className="flex justify-center lg:justify-start gap-4">
+                <motion.a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-3 bg-base-offwhite rounded-lg border border-line hover:border-accent-gold/30 transition-all duration-300 group"
+                  aria-label="Facebook"
+                >
+                  <FaFacebook className="text-ink-secondary group-hover:text-accent-gold transition-colors duration-300" />
+                </motion.a>
+              </div>
               
-              {/* Micro-interaction element */}
-              <div className="mt-6 flex justify-center lg:justify-start">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full animate-pulse" />
-                  <span className="text-xs text-ink-muted">Live</span>
+              {/* Newsletter */}
+              <div className="space-y-3">
+                <p className="text-ink-secondary text-sm">Subscribe for updates</p>
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    className="w-full px-4 py-3 bg-white border border-line rounded-lg focus:border-accent-gold focus:ring-2 focus:ring-accent-gold/20 outline-none text-ink-primary placeholder-ink-muted transition-all duration-300"
+                  />
+                  <button className="absolute right-2 top-2 px-4 py-1 bg-gradient-to-r from-accent-gold to-accent-goldDark text-white font-medium rounded-md hover:shadow-md transition-all duration-300">
+                    Join
+                  </button>
                 </div>
               </div>
             </div>
+          </motion.div>
+        </div>
+
+        {/* Divider */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="my-12 h-px bg-gradient-to-r from-transparent via-line to-transparent"
+        />
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+          {/* Copyright */}
+          <div className="text-center lg:text-left space-y-2">
+            <p className="text-ink-muted text-sm">
+              © Copyright {new Date().getFullYear()} Rure Residencies. All Rights Reserved.
+            </p>
+            <p className="text-ink-muted/60 text-xs">
+              Designed with excellence by{' '}
+              <span className="text-accent-gold font-medium">caelusk digital</span>
+            </p>
           </div>
+
+          {/* Additional Links */}
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link, idx) => (
+              <a
+                key={idx}
+                href="#"
+                className="text-ink-muted hover:text-ink-primary transition-colors duration-300"
+              >
+                {link}
+              </a>
+            ))}
+          </div>
+
+          {/* Back to Top */}
+          <motion.button
+            onClick={scrollToTop}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="p-3 bg-white border border-line rounded-lg hover:border-accent-gold/30 transition-all duration-300 group"
+            aria-label="Back to top"
+          >
+            <FaChevronUp className="text-ink-secondary group-hover:text-accent-gold transition-colors duration-300" />
+          </motion.button>
         </div>
       </div>
 
-      {/* Decorative bottom border */}
-      <div className="relative h-px bg-gradient-to-r from-transparent via-accent-gold to-transparent">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-base-white to-transparent opacity-50 animate-pulse" />
+      {/* Live status indicator */}
+      <div className="flex items-center justify-center gap-2 py-4 border-t border-line text-xs text-ink-muted">
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+          <span>Live</span>
+        </div>
+        <span>•</span>
+        <span>Premium Luxury Real Estate Platform</span>
       </div>
     </footer>
   );
