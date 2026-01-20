@@ -181,7 +181,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* MOBILE MENU - Enhanced with animation */}
+        {/* MOBILE MENU - Fixed height issue */}
         <div className={`
           lg:hidden
           absolute inset-x-0 top-full
@@ -190,7 +190,7 @@ export default function Navbar() {
           overflow-hidden
           transition-all duration-700
           ${isMobileMenuOpen 
-            ? 'max-h-96 opacity-100 visible' 
+            ? 'max-h-screen opacity-100 visible'  // Changed from max-h-96 to max-h-screen
             : 'max-h-0 opacity-0 invisible'
           }
         `}>
