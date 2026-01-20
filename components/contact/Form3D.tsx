@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion'; // Import Variants type
 import { Send, User, Mail, Phone, MessageSquare, Check } from 'lucide-react';
 
 export default function Form3D() {
@@ -37,18 +37,33 @@ export default function Form3D() {
     });
   };
 
-  const formVariants = {
+  // Fix: Use proper TypeScript types
+  const formVariants: Variants = {
     hidden: { rotateX: -15, opacity: 0 },
     visible: {
       rotateX: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const, // Add "as const" or use specific string literal
         stiffness: 100,
         damping: 15,
       },
     },
   };
+
+  // Alternative: Define with explicit types
+  const formVariantsAlternative = {
+    hidden: { rotateX: -15, opacity: 0 },
+    visible: {
+      rotateX: 0,
+      opacity: 1,
+      transition: {
+        type: "spring" as const,
+        stiffness: 100,
+        damping: 15,
+      },
+    },
+  } as const; // You can also add "as const" at the end
 
   const inputVariants = {
     focus: {
@@ -65,6 +80,7 @@ export default function Form3D() {
       animate="visible"
       className="perspective-1000"
     >
+      {/* Rest of your component remains the same */}
       <div className="relative bg-gradient-to-br from-white to-slate-50 rounded-xl shadow-xl border border-slate-200 p-6 md:p-8 transform-style-3d">
         <div className="absolute -inset-0.5 bg-gradient-to-r from-navy-800/20 to-blue-700/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-1000" />
         

@@ -28,7 +28,7 @@ export default function InteractiveMap() {
         saturate(110%)
         hue-rotate(185deg)
       `;
-      iframe.allowFullScreen = true;
+      iframe.allowFullscreen = true; // Fixed: lowercase 's'
       iframe.loading = 'lazy';
       iframe.referrerPolicy = 'no-referrer-when-downgrade';
       iframe.onload = () => {
@@ -78,12 +78,12 @@ export default function InteractiveMap() {
     <motion.div
       initial={{ scale: 0, y: -20 }}
       animate={{ scale: 1, y: 0 }}
-      transition={{ delay: 1, type: "spring" }}
+      transition={{ delay: 1, type: "spring" as const }}
       className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none"
     >
       <motion.div
         animate={{ y: [0, -15, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity }}
+        transition={{ duration: 2.5, repeat: Infinity, type: "tween" as const }}
         className="relative"
       >
         {/* Main marker */}
@@ -97,12 +97,12 @@ export default function InteractiveMap() {
         <motion.div
           className="absolute inset-0 border-4 border-navy-700/30 rounded-full"
           animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+          transition={{ duration: 2, repeat: Infinity, delay: 0.5, type: "tween" as const }}
         />
         <motion.div
           className="absolute inset-0 border-2 border-blue-600/40 rounded-full"
           animate={{ scale: [1, 2], opacity: [0.4, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, delay: 0.8 }}
+          transition={{ duration: 2.5, repeat: Infinity, delay: 0.8, type: "tween" as const }}
         />
       </motion.div>
     </motion.div>
@@ -113,7 +113,7 @@ export default function InteractiveMap() {
       ref={containerRef}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, type: "tween" as const }}
       className="relative w-full h-80 md:h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl group"
       style={{
         transform: `perspective(1000px) rotateX(${mousePosition.y * 0.5}deg) rotateY(${mousePosition.x * 0.5}deg)`,
@@ -187,7 +187,7 @@ export default function InteractiveMap() {
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.2 }}
+          transition={{ delay: 1.2, type: "tween" as const }}
           className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-md rounded-xl p-5 shadow-2xl border border-white/20 z-20 max-w-sm"
         >
           <div className="flex items-start gap-4">
@@ -223,7 +223,7 @@ export default function InteractiveMap() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0] }}
-          transition={{ delay: 2, duration: 3, repeat: Infinity }}
+          transition={{ delay: 2, duration: 3, repeat: Infinity, type: "tween" as const }}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-20 pointer-events-none z-10"
         >
           <div className="bg-black/90 backdrop-blur-sm text-white text-sm px-5 py-3 rounded-full whitespace-nowrap shadow-xl border border-white/10">
