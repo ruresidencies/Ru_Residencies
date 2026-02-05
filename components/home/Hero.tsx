@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Container from '@/components/ui/Container';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import Link from 'next/link';
 
 const slides = [
   {
@@ -134,9 +135,11 @@ export default function Hero() {
             <button className="px-8 py-3 bg-white text-black font-medium tracking-wide hover:bg-white/90 transition-all duration-300 transform hover:-translate-y-0.5">
               Explore Residences
             </button>
-            <button className="px-8 py-3 border-2 border-white/30 text-white font-medium tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5">
-              View Gallery
-            </button>
+            <Link href="/gallery">
+              <button className="px-8 py-3 border-2 border-white/30 text-white font-medium tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5">
+                View Gallery
+              </button>
+            </Link>
           </div>
         </div>
       </Container>

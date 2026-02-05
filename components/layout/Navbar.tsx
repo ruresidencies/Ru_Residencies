@@ -50,56 +50,58 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             
             {/* BRAND - Enhanced with animation */}
-            <div 
-              className="
-                flex items-center gap-4 
-                group cursor-pointer
-                transform transition-transform duration-500
-                hover:scale-[1.02]
-              "
-              onMouseEnter={() => setActiveLink('')}
-            >
-              <div className="
-                relative 
-                w-12 h-12 
-                overflow-hidden 
-                rounded-xl 
-                bg-gradient-to-br from-gray-900 to-black
-                group-hover:from-gray-800 group-hover:to-black
-                transition-all duration-500
-                shadow-lg group-hover:shadow-xl
-              ">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
-                <Image
-                  src="/images/ru residencies logo (1).png"
-                  alt="RU Residencies"
-                  width={48}
-                  height={48}
-                  priority
-                  className="
-                    relative z-10
-                    transform transition-transform duration-700
-                    group-hover:scale-110
-                  "
-                />
-              </div>
+            <Link href="/" className="block">
+              <div 
+                className="
+                  flex items-center gap-4 
+                  group cursor-pointer
+                  transform transition-transform duration-500
+                  hover:scale-[1.02]
+                "
+                onMouseEnter={() => setActiveLink('')}
+              >
+                <div className="
+                  relative 
+                  w-12 h-12 
+                  overflow-hidden 
+                  rounded-xl 
+                  bg-gradient-to-br from-gray-900 to-black
+                  group-hover:from-gray-800 group-hover:to-black
+                  transition-all duration-500
+                  shadow-lg group-hover:shadow-xl
+                ">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+                  <Image
+                    src="/images/ru residencies logo (1).png"
+                    alt="RU Residencies"
+                    width={48}
+                    height={48}
+                    priority
+                    className="
+                      relative z-10
+                      transform transition-transform duration-700
+                      group-hover:scale-110
+                    "
+                  />
+                </div>
 
-              <div className="flex flex-col">
-                <span className="
-                  font-serif text-2xl font-light text-gray-900 leading-tight
-                  tracking-wide
-                ">
-                  RU Residencies
-                </span>
-                <span className="
-                  text-xs tracking-[0.3em] text-gray-500 mt-1
-                  transform transition-all duration-500
-                  group-hover:translate-x-1
-                ">
-                  NUGEGODA
-                </span>
+                <div className="flex flex-col">
+                  <span className="
+                    font-serif text-2xl font-light text-gray-900 leading-tight
+                    tracking-wide
+                  ">
+                    RU Residencies
+                  </span>
+                  <span className="
+                    text-xs tracking-[0.3em] text-gray-500 mt-1
+                    transform transition-all duration-500
+                    group-hover:translate-x-1
+                  ">
+                    NUGEGODA
+                  </span>
+                </div>
               </div>
-            </div>
+            </Link>
 
             {/* DESKTOP NAV LINKS - Enhanced with hover effects */}
             <nav className="hidden lg:flex items-center gap-10">
@@ -115,37 +117,39 @@ export default function Navbar() {
 
             {/* CTA BUTTON - Premium styling */}
             <div className="hidden lg:flex items-center gap-6">
-              <div
-                className="
-                  group relative
-                  inline-flex items-center
-                  rounded-full
-                  px-8 py-3
-                  text-sm font-medium
-                  text-gray-900
-                  overflow-hidden
-                  transition-all duration-500
-                  before:absolute before:inset-0 
-                  before:bg-gradient-to-r before:from-gray-900 before:to-black
-                  before:translate-x-[-100%] before:transition-transform before:duration-500
-                  hover:before:translate-x-0
-                  hover:text-white
-                  hover:shadow-2xl
-                  border border-gray-300
-                  cursor-pointer
-                "
-                onMouseEnter={() => setActiveLink('contact')}
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  Schedule a Viewing
-                  <span className="
-                    inline-block transform transition-transform duration-500
-                    group-hover:translate-x-1
-                  ">
-                    →
+              <Link href="/schedule-viewing" className="block">
+                <div
+                  className="
+                    group relative
+                    inline-flex items-center
+                    rounded-full
+                    px-8 py-3
+                    text-sm font-medium
+                    text-gray-900
+                    overflow-hidden
+                    transition-all duration-500
+                    before:absolute before:inset-0 
+                    before:bg-gradient-to-r before:from-gray-900 before:to-black
+                    before:translate-x-[-100%] before:transition-transform before:duration-500
+                    hover:before:translate-x-0
+                    hover:text-white
+                    hover:shadow-2xl
+                    border border-gray-300
+                    cursor-pointer
+                  "
+                  onMouseEnter={() => setActiveLink('contact')}
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Schedule a Viewing
+                    <span className="
+                      inline-block transform transition-transform duration-500
+                      group-hover:translate-x-1
+                    ">
+                      →
+                    </span>
                   </span>
-                </span>
-              </div>
+                </div>
+              </Link>
             </div>
 
             {/* MOBILE MENU BUTTON */}
@@ -190,48 +194,55 @@ export default function Navbar() {
           overflow-hidden
           transition-all duration-700
           ${isMobileMenuOpen 
-            ? 'max-h-screen opacity-100 visible'  // Changed from max-h-96 to max-h-screen
+            ? 'max-h-screen opacity-100 visible'
             : 'max-h-0 opacity-0 invisible'
           }
         `}>
           <div className="px-6 py-8 space-y-6">
             {navItems.map((item) => (
-              <div
+              <Link 
                 key={item.href}
+                href={item.href}
+                className="block"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <div
+                  className="
+                    block
+                    text-lg font-light text-gray-700
+                    py-3
+                    border-b border-gray-100
+                    transition-all duration-300
+                    hover:text-gray-900 hover:pl-4
+                    hover:border-gray-300
+                    cursor-pointer
+                  "
+                >
+                  {item.label}
+                </div>
+              </Link>
+            ))}
+            <Link href="/schedule-viewing" className="block">
+              <div
                 className="
-                  block
-                  text-lg font-light text-gray-700
-                  py-3
-                  border-b border-gray-100
-                  transition-all duration-300
-                  hover:text-gray-900 hover:pl-4
-                  hover:border-gray-300
+                  block w-full
+                  rounded-xl
+                  bg-gradient-to-r from-gray-900 to-black
+                  text-white
+                  text-center
+                  py-4
+                  text-sm font-medium
+                  transition-transform duration-300
+                  hover:scale-[1.02]
+                  active:scale-[0.98]
+                  shadow-lg
                   cursor-pointer
                 "
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item.label}
+                Schedule a Viewing
               </div>
-            ))}
-            <div
-              className="
-                block w-full
-                rounded-xl
-                bg-gradient-to-r from-gray-900 to-black
-                text-white
-                text-center
-                py-4
-                text-sm font-medium
-                transition-transform duration-300
-                hover:scale-[1.02]
-                active:scale-[0.98]
-                shadow-lg
-                cursor-pointer
-              "
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Schedule a Viewing
-            </div>
+            </Link>
           </div>
         </div>
       </header>
@@ -271,48 +282,50 @@ function NavLink({
   }
 
   return (
-    <div
-      className="
-        relative
-        text-sm font-light
-        text-gray-600
-        tracking-wide
-        transition-colors duration-500
-        hover:text-gray-900
-        group
-        py-2
-        cursor-pointer
-      "
-      onMouseEnter={onHover}
-    >
-      <span className={`
-        relative z-10
-        transition-all duration-500
-        ${isActive ? 'text-gray-900' : ''}
-      `}>
-        {getLabel()}
-      </span>
-      
-      {/* Animated underline */}
-      <span className={`
-        absolute bottom-0 left-0
-        h-px w-0
-        bg-gradient-to-r from-gray-900 to-black
-        transition-all duration-500
-        group-hover:w-full
-        ${isActive ? 'w-full' : ''}
-      `} />
-      
-      {/* Hover background effect */}
-      <span className="
-        absolute inset-0 -mx-3 -my-1
-        bg-gradient-to-r from-gray-50 to-transparent
-        rounded-lg
-        opacity-0
-        group-hover:opacity-100
-        transition-opacity duration-500
-        -z-10
-      " />
-    </div>
+    <Link href={href} className="block">
+      <div
+        className="
+          relative
+          text-sm font-light
+          text-gray-600
+          tracking-wide
+          transition-colors duration-500
+          hover:text-gray-900
+          group
+          py-2
+          cursor-pointer
+        "
+        onMouseEnter={onHover}
+      >
+        <span className={`
+          relative z-10
+          transition-all duration-500
+          ${isActive ? 'text-gray-900' : ''}
+        `}>
+          {getLabel()}
+        </span>
+        
+        {/* Animated underline */}
+        <span className={`
+          absolute bottom-0 left-0
+          h-px w-0
+          bg-gradient-to-r from-gray-900 to-black
+          transition-all duration-500
+          group-hover:w-full
+          ${isActive ? 'w-full' : ''}
+        `} />
+        
+        {/* Hover background effect */}
+        <span className="
+          absolute inset-0 -mx-3 -my-1
+          bg-gradient-to-r from-gray-50 to-transparent
+          rounded-lg
+          opacity-0
+          group-hover:opacity-100
+          transition-opacity duration-500
+          -z-10
+        " />
+      </div>
+    </Link>
   )
 }
