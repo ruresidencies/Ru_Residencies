@@ -99,14 +99,14 @@ const Footer = () => {
                 { 
                   icon: FaPhone, 
                   label: "Telephone",
-                  value: "+94 773 711 444",
-                  href: "tel:+94773711444"
+                  value: "+94 77 211 2117",
+                  href: "tel:+94772112117"
                 },
                 { 
                   icon: FaEnvelope, 
                   label: "Email",
-                  value: "sales@ruresidencieslk.com",
-                  href: "mailto:sales@ruresidencieslk.com"
+                  value: "Info@ruresidencies.com",
+                  href: "mailto:Info@ruresidencies.com"
                 },
                 { 
                   icon: FaClock, 
