@@ -9,7 +9,7 @@ export default function ResidencesPage() {
       size: '1,460 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Room & Toilet',
       description: 'Spacious corner unit with optimal natural light and panoramic views.',
-      image: '/images/residences/type-a.jpg',
+      image: '/images/A.png',
       features: [
         'Open-plan living & dining',
         'Private balcony access from living room',
@@ -22,7 +22,7 @@ export default function ResidencesPage() {
       size: '1,406 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Room & Toilet',
       description: 'Efficient layout maximizing space and functionality.',
-      image: '/images/residences/type-b.jpg',
+      image: '/images/B.png',
       features: [
         'Separate utility area',
         'Built-in kitchen cabinets',
@@ -35,7 +35,7 @@ export default function ResidencesPage() {
       size: '1,377 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
       description: 'Well-proportioned family residence with ample storage.',
-      image: '/images/residences/type-c.jpg',
+      image: '/images/C.png',
       features: [
         'Granite kitchen countertops',
         'Premium sanitary fittings',
@@ -48,7 +48,7 @@ export default function ResidencesPage() {
       size: '1,439 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
       description: 'Corner unit featuring enhanced privacy and cross-ventilation.',
-      image: '/images/residences/type-d.jpg',
+      image: '/images/D.png',
       features: [
         'Extra-large living area',
         'Premium flooring throughout',
@@ -197,15 +197,15 @@ export default function ResidencesPage() {
                 shadow-2xl
                 group
               ">
-                {/* Placeholder image - replace with actual high-quality image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse" />
-                <div className="
-                  absolute inset-0 
-                  flex items-center justify-center
-                  text-gray-400 text-sm
-                ">
-                  [High-quality residence image]
-                </div>
+                {/* Your high-quality residence image */}
+                <Image
+                  src="/images/gallery4.jpeg"
+                  alt="Luxury residence at RU Residencies"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
               
               {/* Decorative elements */}
@@ -239,7 +239,7 @@ export default function ResidencesPage() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {floorPlans.map((plan, index) => (
+            {floorPlans.map((plan) => (
               <div
                 key={plan.type}
                 className="
@@ -252,16 +252,18 @@ export default function ResidencesPage() {
                   hover:shadow-2xl hover:border-gray-200
                 "
               >
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  {/* Placeholder for floor plan image */}
-                  <div className="
-                    absolute inset-0 
-                    bg-gradient-to-br from-gray-100 to-gray-200
-                    flex items-center justify-center
-                    text-gray-400
-                  ">
-                    [Floor plan visualization]
-                  </div>
+                <div className="relative aspect-[16/9] overflow-hidden bg-gray-50">
+                  {/* Floor plan image */}
+                  <Image
+                    src={plan.image}
+                    alt={`${plan.type} floor plan - ${plan.size}`}
+                    fill
+                    className="object-contain p-4 transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  
+                  {/* Overlay gradient for better text visibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent" />
                   
                   {/* Badge */}
                   <div className="
@@ -270,8 +272,22 @@ export default function ResidencesPage() {
                     px-4 py-2
                     rounded-full
                     text-sm font-medium text-gray-900
+                    shadow-sm
                   ">
                     {plan.type}
+                  </div>
+                  
+                  {/* Size badge */}
+                  <div className="
+                    absolute top-6 right-6
+                    bg-gradient-to-r from-gray-900 to-black
+                    text-white
+                    px-4 py-2
+                    rounded-full
+                    text-sm font-medium
+                    shadow-lg
+                  ">
+                    {plan.size}
                   </div>
                 </div>
 
@@ -282,7 +298,7 @@ export default function ResidencesPage() {
                         {plan.type} Residence
                       </h3>
                       <p className="text-gray-500 text-sm">
-                        {plan.size} • {plan.layout}
+                        {plan.layout}
                       </p>
                     </div>
                   </div>
@@ -291,20 +307,21 @@ export default function ResidencesPage() {
                     {plan.description}
                   </p>
 
-                  <div className="space-y-3">
+                  <div className="space-y-3 mb-8">
                     {plan.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-3">
                         <div className="
                           w-2 h-2 
                           rounded-full 
                           bg-gradient-to-r from-gray-900 to-black
+                          flex-shrink-0
                         " />
                         <span className="text-gray-700">{feature}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-gray-100">
+                  <div className="pt-6 border-t border-gray-100">
                     <Link href="/schedule-viewing" className="block">
                       <div
                         className="

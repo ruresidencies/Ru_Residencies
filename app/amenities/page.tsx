@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronRight, Check, Shield, Car, Users, Building, Dumbbell, Coffee, Wifi, Wind } from 'lucide-react'
+import { ChevronRight, Check, Shield, Car, Users, Building, Dumbbell, Coffee, Wifi, Wind, Banknote, Landmark, FileText } from 'lucide-react'
 
 export default function AmenitiesPage() {
   const [activeCategory, setActiveCategory] = useState('all')
@@ -16,11 +16,11 @@ export default function AmenitiesPage() {
   const amenities = [
     {
       id: 'pool',
-      title: 'Rooftop Infinity Pool',
-      description: 'Skyline views from our temperature-controlled infinity pool',
+      title: 'Rooftop Swimming Pool',
+      description: 'Relax and unwind in our serene rooftop pool with panoramic city views',
       category: 'leisure',
       image: 'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
-      features: ['Temperature controlled', 'Infinity edge', 'Sunset views', 'Poolside lounge']
+      features: ['Temperature controlled', 'Panoramic views', 'Sunset seating', 'Poolside lounge']
     },
     {
       id: 'gym',
@@ -32,10 +32,10 @@ export default function AmenitiesPage() {
     },
     {
       id: 'reception',
-      title: 'Luxury Reception & Concierge',
+      title: 'Reception & Concierge',
       description: '24/7 concierge service with valet and personal assistance',
       category: 'services',
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
+      image: '/images/reception.jpg',
       features: ['24/7 concierge', 'Valet service', 'Package handling', 'Guest services']
     },
     {
@@ -43,7 +43,7 @@ export default function AmenitiesPage() {
       title: 'Reserved & Visitor Parking',
       description: 'Secure underground parking with EV charging stations',
       category: 'services',
-      image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
+      image: '/images/parking.jpg',
       features: ['Resident parking', 'Visitor slots', 'EV charging', '24/7 security']
     },
     {
@@ -51,7 +51,7 @@ export default function AmenitiesPage() {
       title: 'Executive Conference Room',
       description: 'Fully-equipped meeting space for business needs',
       category: 'business',
-      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
+      image: '/images/confernce.jpg',
       features: ['Video conferencing', 'High-speed WiFi', 'Catering available', 'AV equipment']
     },
     {
@@ -59,23 +59,23 @@ export default function AmenitiesPage() {
       title: '24/7 Advanced Security',
       description: 'Multi-layered security with biometric access',
       category: 'security',
-      image: 'https://images.unsplash.com/photo-1560264282-141d09da8b30?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
+      image: '/images/cctv.jpg',
       features: ['Biometric access', 'CCTV surveillance', 'Security personnel', 'Emergency response']
     },
     {
       id: 'lifts',
-      title: 'High-Speed Elevators',
-      description: 'Dual premium elevators with panoramic views',
+      title: 'Premium Elevators',
+      description: 'Modern elevators with mirror finishes for convenient access',
       category: 'building',
-      image: 'https://images.unsplash.com/photo-1580512485316-cc504a27fe3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
-      features: ['Dual elevators', 'Mirror finished', 'Express service', '24/7 operation']
+      image: '/images/elevator.jpg',
+      features: ['Dual elevators', 'Mirror finished', 'Reliable service', '24/7 operation']
     },
     {
       id: 'disposal',
       title: 'Advanced Waste Management',
       description: 'Eco-friendly disposal system on every floor',
       category: 'services',
-      image: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
+      image: '/images/waste.webp',
       features: ['Floor-level disposal', 'Recycling system', 'Odor control', 'Daily collection']
     }
   ]
@@ -185,8 +185,16 @@ export default function AmenitiesPage() {
                   src={amenity.image}
                   alt={amenity.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  className={`object-cover group-hover:scale-110 transition-transform duration-700 ${
+                    amenity.id === 'reception' ? 'object-top' : 
+                    amenity.id === 'parking' ? 'object-center' :
+                    amenity.id === 'conference' ? 'object-center' :
+                    amenity.id === 'security' ? 'object-center' :
+                    amenity.id === 'lifts' ? 'object-cover' :
+                    amenity.id === 'disposal' ? 'object-center' : ''
+                  }`}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={90}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 
@@ -225,27 +233,32 @@ export default function AmenitiesPage() {
         </div>
       </div>
 
-      {/* Bank Loan Section */}
+      {/* Bank Loan Section - Updated with better image */}
       <div className="bg-gradient-to-br from-gray-50 to-white py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-serif text-3xl lg:text-4xl font-light text-gray-900 mb-6">
-                Flexible Financing Options
-              </h2>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-gradient-to-r from-navy-700 to-blue-800 shadow-md">
+                  <FileText className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="font-serif text-3xl lg:text-4xl font-light text-gray-900">
+                  Home Loan Assistance
+                </h2>
+              </div>
               <p className="text-gray-600 text-lg mb-8">
-                RU Residencies partners with leading banks to provide exclusive financing solutions. 
-                Our residents benefit from preferential rates and seamless loan processing.
+                We provide comprehensive home loan assistance through our partnerships with leading 
+                Sri Lankan financial institutions. Get expert guidance for your property financing needs in LKR.
               </p>
               
               <div className="space-y-4">
                 {[
-                  'Preferential interest rates',
-                  'Quick approval process',
-                  'Flexible payment plans',
-                  'Multiple bank partnerships',
-                  'Dedicated financial advisor',
-                  'Digital application process'
+                  'Loan application assistance',
+                  'Multiple bank tie-ups available',
+                  'Documentation guidance',
+                  'Quick processing support',
+                  'Competitive LKR interest rates',
+                  'Flexible repayment options'
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
@@ -268,14 +281,14 @@ export default function AmenitiesPage() {
                     overflow-hidden
                     transition-all duration-500
                     before:absolute before:inset-0 
-                    before:bg-gradient-to-r before:from-gray-900 before:to-black
+                    before:bg-gradient-to-r before:from-navy-700 before:to-blue-800
                     before:translate-x-[-100%] before:transition-transform before:duration-500
                     hover:before:translate-x-0
                     hover:shadow-2xl
-                    border border-gray-900
+                    border border-navy-700
                   ">
                     <span className="relative z-10 flex items-center gap-2">
-                      Discuss Financing Options
+                      Get Loan Assistance
                       <ChevronRight className="w-4 h-4 transform transition-transform duration-500 group-hover:translate-x-1" />
                     </span>
                   </button>
@@ -284,37 +297,35 @@ export default function AmenitiesPage() {
             </div>
 
             <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+              {/* Changed to a more appropriate Sri Lankan/Asian financial image */}
               <Image
-                src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80"
-                alt="Bank Financing"
+                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80"
+                alt="Home Loan Assistance"
                 fill
                 className="object-cover"
                 quality={100}
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-navy-700/30 via-blue-800/20 to-transparent" />
               
-              {/* Bank Logos Overlay */}
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="grid grid-cols-3 gap-4">
-                  {[
-                    { name: 'Commercial Bank', color: '#0033A0' },
-                    { name: 'HSBC', color: '#DB0011' },
-                    { name: 'NDB', color: '#008751' },
-                    { name: 'Sampath Bank', color: '#E4002B' },
-                    { name: 'HNB', color: '#009FE3' },
-                    { name: 'Seylan Bank', color: '#0054A6' }
-                  ].map((bank, index) => (
-                    <div 
-                      key={index}
-                      className="bg-white/95 backdrop-blur-sm rounded-lg p-3 text-center shadow-lg"
-                    >
-                      <div 
-                        className="w-8 h-1 mx-auto mb-2 rounded-full"
-                        style={{ backgroundColor: bank.color }}
-                      />
-                      <span className="text-xs font-medium text-gray-700">{bank.name}</span>
+              {/* Sri Lankan Rupee Symbol Overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
+                <div className="text-center max-w-md">
+                  <div className="inline-block p-6 rounded-2xl bg-white/95 backdrop-blur-sm shadow-2xl mb-6">
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="text-4xl font-bold text-navy-700">Rs</div>
+                      <div className="text-5xl font-bold text-navy-700">LKR</div>
+                      <div className="text-4xl font-bold text-navy-700">₨</div>
                     </div>
-                  ))}
+                    <div className="text-lg text-gray-700 font-medium mt-4">Sri Lankan Rupee Financing</div>
+                  </div>
+                  <div className="mt-4">
+                    <div className="text-white text-base font-medium bg-gradient-to-r from-navy-700/90 to-blue-800/90 backdrop-blur-sm px-6 py-3 rounded-full inline-block">
+                      <div className="flex items-center gap-2">
+                        <Banknote className="w-4 h-4" />
+                        <span>Local Currency Home Loans</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
