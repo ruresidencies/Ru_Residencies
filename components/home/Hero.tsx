@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Container from '@/components/ui/Container';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play, X, Maximize2, Minimize2, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 
 const slides = [
@@ -32,7 +32,16 @@ export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isTextVisible, setIsTextVisible] = useState(true);
+  const [showVideoPlayer, setShowVideoPlayer] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const hasInitialized = useRef(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -46,7 +55,55 @@ export default function Hero() {
     setCurrentSlide(index);
   };
 
-  // Auto-play functionality
+  // Video player functions
+  const toggleVideoPlay = () => {
+    if (videoRef.current) {
+      if (isVideoPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
+    }
+  };
+
+  const toggleVideoMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isVideoMuted;
+      setIsVideoMuted(!isVideoMuted);
+    }
+  };
+
+  const toggleFullscreen = () => {
+    if (!videoContainerRef.current) return;
+    
+    if (!isFullscreen) {
+      if (videoContainerRef.current.requestFullscreen) {
+        videoContainerRef.current.requestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+    setIsFullscreen(!isFullscreen);
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const time = parseFloat(e.target.value);
+    if (videoRef.current) {
+      videoRef.current.currentTime = time;
+      setCurrentTime(time);
+    }
+  };
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  // Auto-play functionality for slides
   useEffect(() => {
     if (!isPlaying) return;
 
@@ -63,6 +120,40 @@ export default function Hero() {
       setIsTextVisible(true);
       hasInitialized.current = true;
     }
+  }, []);
+
+  // Video time update
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(video.currentTime);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(video.duration);
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, []);
+
+  // Handle fullscreen change
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
   }, []);
 
   return (
@@ -144,6 +235,181 @@ export default function Hero() {
         </div>
       </Container>
 
+      {/* High-End Video Player Window - Desktop Only */}
+      <div className="relative">
+        {showVideoPlayer && (
+          <div 
+            className={`hidden lg:block absolute top-8 right-8 z-30 transition-all duration-500 ${
+              isFullscreen 
+                ? 'fixed inset-0 z-50 bg-black' 
+                : isHovered 
+                  ? 'scale-105' 
+                  : 'scale-100'
+            }`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            ref={videoContainerRef}
+          >
+            <div 
+              className={`transition-all duration-500 ${
+                isFullscreen 
+                  ? 'w-full h-full bg-black' 
+                  : 'w-80 h-52 rounded-xl overflow-hidden shadow-2xl backdrop-blur-xl bg-black/90 border border-white/10 hover:shadow-3xl hover:border-white/20'
+              }`}
+            >
+              {/* Window Header */}
+              <div 
+                className={`flex items-center justify-between px-4 py-2.5 transition-all duration-300 ${
+                  isFullscreen 
+                    ? 'bg-black/50 border-b border-white/10' 
+                    : isHovered
+                      ? 'bg-black/70 backdrop-blur-sm'
+                      : 'bg-black/60'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <div 
+                      className="w-2.5 h-2.5 rounded-full bg-red-500 hover:bg-red-400 cursor-pointer transition-all duration-300 hover:scale-110" 
+                      onClick={() => setShowVideoPlayer(false)}
+                    />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+                  </div>
+                  <span className="text-xs text-white/70 ml-2 font-mono tracking-wide">RU Preview</span>
+                </div>
+                
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={toggleFullscreen}
+                    className="p-1 hover:bg-white/10 rounded transition-all duration-300 hover:scale-110"
+                    aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+                  >
+                    {isFullscreen ? (
+                      <Minimize2 size={12} className="text-white/80" />
+                    ) : (
+                      <Maximize2 size={12} className="text-white/80" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Video Container */}
+              <div className="relative h-[calc(100%-44px)]">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted={isVideoMuted}
+                  loop
+                  playsInline
+                >
+                  <source src="/video/ru.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+
+                {/* Gradient Overlay - Subtle */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-black/5" />
+
+                {/* Play/Pause Overlay */}
+                {!isVideoPlaying && (
+                  <button
+                    onClick={toggleVideoPlay}
+                    className="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300"
+                    aria-label="Play video"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 hover:bg-white/30 transition-all duration-300 hover:scale-110">
+                      <Play size={20} className="text-white ml-1" />
+                    </div>
+                  </button>
+                )}
+
+                {/* Minimal Controls (Show on hover) */}
+                <div 
+                  className={`absolute bottom-0 left-0 right-0 p-3 transition-all duration-300 ${
+                    isHovered || !isVideoPlaying || isFullscreen
+                      ? 'bg-gradient-to-t from-black/90 via-black/70 to-transparent opacity-100'
+                      : 'opacity-0'
+                  }`}
+                >
+                  {/* Progress Bar - Minimal */}
+                  <div className="mb-2">
+                    <input
+                      type="range"
+                      min="0"
+                      max={duration || 100}
+                      value={currentTime}
+                      onChange={handleSeek}
+                      className="w-full h-1 appearance-none bg-white/20 rounded-full cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:cursor-pointer hover:[&::-webkit-slider-thumb]:scale-125 transition-transform"
+                    />
+                  </div>
+
+                  {/* Control Buttons - Minimal */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={toggleVideoPlay}
+                        className="p-1.5 hover:bg-white/10 rounded-full transition-all duration-300 hover:scale-110"
+                        aria-label={isVideoPlaying ? "Pause video" : "Play video"}
+                      >
+                        {isVideoPlaying ? (
+                          <Pause size={14} className="text-white" />
+                        ) : (
+                          <Play size={14} className="text-white ml-0.5" />
+                        )}
+                      </button>
+                      
+                      <button
+                        onClick={toggleVideoMute}
+                        className="p-1.5 hover:bg-white/10 rounded-full transition-all duration-300 hover:scale-110"
+                        aria-label={isVideoMuted ? "Unmute video" : "Mute video"}
+                      >
+                        {isVideoMuted ? (
+                          <VolumeX size={14} className="text-white" />
+                        ) : (
+                          <Volume2 size={14} className="text-white" />
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Time Display */}
+                    <div className="text-xs text-white/60 font-mono">
+                      {formatTime(currentTime)} / {formatTime(duration)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Status Indicator */}
+                <div className="absolute top-2 right-2">
+                  <div className="flex items-center gap-1 px-2 py-0.5 bg-black/60 backdrop-blur-sm rounded-full">
+                    <div className={`w-1.5 h-1.5 rounded-full ${isVideoPlaying ? 'bg-green-500 animate-pulse' : 'bg-amber-500'}`} />
+                    <span className="text-xs text-white/70">{isVideoPlaying ? 'LIVE' : 'PAUSED'}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Floating Icon to Reopen Video Player - Desktop Only */}
+        {!showVideoPlayer && (
+          <div 
+            className="hidden lg:block absolute top-8 right-8 z-30 cursor-pointer group"
+            onClick={() => setShowVideoPlayer(true)}
+          >
+            <div className="relative">
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-blue-500/20 rounded-xl blur-md group-hover:bg-blue-500/30 transition-all duration-500" />
+              
+              {/* Main button */}
+              <div className="relative w-10 h-10 rounded-xl bg-black/80 backdrop-blur-sm border border-white/10 flex items-center justify-center hover:bg-black hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl group-hover:border-blue-400/30">
+                <Play size={16} className="text-white/80 group-hover:text-blue-400 transition-colors duration-300" />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Slideshow Controls - Mobile responsive */}
       <div className="absolute bottom-20 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20 w-full px-4 md:px-0 md:w-auto">
         <div className="flex items-center gap-4 md:gap-6 bg-black/30 backdrop-blur-sm px-4 md:px-6 py-3 rounded-full justify-center">
@@ -156,7 +422,7 @@ export default function Hero() {
             <ChevronLeft size={24} className="hidden md:block" />
           </button>
 
-          {/* Slide Indicators - Smaller on mobile */}
+          {/* Slide Indicators */}
           <div className="flex items-center gap-2 md:gap-3">
             {slides.map((_, index) => (
               <button
@@ -194,7 +460,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Slide Number Display - Mobile responsive */}
+      {/* Slide Number Display */}
       <div className="absolute bottom-8 md:bottom-8 right-4 md:right-8 z-20">
         <div className="flex items-center gap-2 text-white/70 text-sm font-light">
           <span className="text-xl md:text-2xl font-normal text-white">
@@ -213,7 +479,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Subtle gradient at bottom - Enhanced for mobile */}
+      {/* Subtle gradient at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-40 md:h-32 bg-gradient-to-t from-black/40 to-transparent z-10" />
     </section>
   );

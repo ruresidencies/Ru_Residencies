@@ -1,4 +1,3 @@
-// components/home/VideoSection.tsx
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
@@ -193,10 +192,10 @@ export default function VideoSection() {
   )
 
   return (
-    <section className="relative bg-black">
+    <section className="relative bg-black lg:hidden">
       <div 
         ref={containerRef}
-        className="relative min-h-[60vh] md:min-h-[70vh] lg:min-h-[80vh] overflow-hidden group cursor-pointer"
+        className="relative min-h-[60vh] md:min-h-[70vh] overflow-hidden group cursor-pointer"
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
       >
