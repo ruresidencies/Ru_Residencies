@@ -99,93 +99,123 @@ export default function VideoSection() {
     }
   }, [])
 
-  // Simplified controls for mobile
+  // Mobile Controls - Fixed positioning at bottom
   const MobileControls = () => (
-    <div className="md:hidden absolute bottom-6 left-0 right-0 px-4">
-      <div className="flex items-center justify-center gap-4">
-        <button
-          onClick={togglePlay}
-          className="
-            w-14 h-14
-            rounded-full
-            bg-white/20 backdrop-blur-md
-            flex items-center justify-center
-            text-white
-            hover:bg-white/30
-            transition-all duration-300
-            border border-white/30
-            shadow-lg
-          "
-          aria-label={isPlaying ? 'Pause video' : 'Play video'}
-        >
-          {isPlaying ? (
-            <Pause className="w-6 h-6" />
-          ) : (
-            <Play className="w-6 h-6 ml-1" />
-          )}
-        </button>
-        
-        <button
-          onClick={toggleMute}
-          className="
-            w-12 h-12
-            rounded-full
-            bg-white/20 backdrop-blur-md
-            flex items-center justify-center
-            text-white
-            hover:bg-white/30
-            transition-all duration-300
-            border border-white/30
-            shadow-lg
-          "
-          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-        >
-          {isMuted ? (
-            <VolumeX className="w-5 h-5" />
-          ) : (
-            <Volume2 className="w-5 h-5" />
-          )}
-        </button>
-      </div>
+    <div className="md:hidden absolute bottom-0 left-0 right-0">
+      {/* Gradient overlay for controls */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
       
-      {/* Progress bar for mobile */}
-      <div className="mt-4 px-2">
-        <div className="relative">
-          <input
-            type="range"
-            min="0"
-            max={duration || 100}
-            value={currentTime}
-            onChange={handleSeek}
-            className="
-              w-full h-2
-              appearance-none
-              bg-white/30
-              rounded-full
-              cursor-pointer
-              outline-none
-              [&::-webkit-slider-thumb]:appearance-none
-              [&::-webkit-slider-thumb]:w-6
-              [&::-webkit-slider-thumb]:h-6
-              [&::-webkit-slider-thumb]:rounded-full
-              [&::-webkit-slider-thumb]:bg-white
-              [&::-webkit-slider-thumb]:cursor-pointer
-              [&::-webkit-slider-thumb]:shadow-lg
-            "
-          />
-          <div 
-            className="absolute top-0 left-0 h-2 bg-white rounded-full pointer-events-none"
-            style={{ width: `${(currentTime / duration) * 100}%` }}
-          />
+      {/* Controls container */}
+      <div className="relative px-4 pb-6 pt-8">
+        {/* Progress bar */}
+        <div className="mb-4">
+          <div className="relative">
+            <input
+              type="range"
+              min="0"
+              max={duration || 100}
+              value={currentTime}
+              onChange={handleSeek}
+              className="
+                w-full h-2
+                appearance-none
+                bg-white/30
+                rounded-full
+                cursor-pointer
+                outline-none
+                [&::-webkit-slider-thumb]:appearance-none
+                [&::-webkit-slider-thumb]:w-5
+                [&::-webkit-slider-thumb]:h-5
+                [&::-webkit-slider-thumb]:rounded-full
+                [&::-webkit-slider-thumb]:bg-white
+                [&::-webkit-slider-thumb]:cursor-pointer
+                [&::-webkit-slider-thumb]:shadow-lg
+              "
+            />
+            <div 
+              className="absolute top-0 left-0 h-2 bg-white rounded-full pointer-events-none"
+              style={{ width: `${(currentTime / duration) * 100}%` }}
+            />
+          </div>
+          
+          <div className="flex justify-between mt-2">
+            <span className="text-white text-sm">
+              {formatTime(currentTime)}
+            </span>
+            <span className="text-white/70 text-sm">
+              {formatTime(duration)}
+            </span>
+          </div>
         </div>
         
-        <div className="flex justify-between mt-2">
-          <span className="text-white text-sm">
-            {formatTime(currentTime)}
-          </span>
-          <span className="text-white/70 text-sm">
-            {formatTime(duration)}
-          </span>
+        {/* Control buttons */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={togglePlay}
+              className="
+                w-12 h-12
+                rounded-full
+                bg-white/20 backdrop-blur-md
+                flex items-center justify-center
+                text-white
+                hover:bg-white/30
+                transition-all duration-300
+                border border-white/30
+                shadow-lg
+                active:scale-95
+              "
+              aria-label={isPlaying ? 'Pause video' : 'Play video'}
+            >
+              {isPlaying ? (
+                <Pause className="w-5 h-5" />
+              ) : (
+                <Play className="w-5 h-5 ml-1" />
+              )}
+            </button>
+            
+            <button
+              onClick={toggleMute}
+              className="
+                w-10 h-10
+                rounded-full
+                bg-white/20 backdrop-blur-md
+                flex items-center justify-center
+                text-white
+                hover:bg-white/30
+                transition-all duration-300
+                border border-white/30
+                shadow-lg
+                active:scale-95
+              "
+              aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+            >
+              {isMuted ? (
+                <VolumeX className="w-4 h-4" />
+              ) : (
+                <Volume2 className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+          
+          <button
+            onClick={handleFullscreen}
+            className="
+              w-10 h-10
+              rounded-full
+              bg-white/20 backdrop-blur-md
+              flex items-center justify-center
+              text-white
+              hover:bg-white/30
+              transition-all duration-300
+              border border-white/30
+              shadow-lg
+              active:scale-95
+            "
+            aria-label="Enter fullscreen"
+          >
+            <Maximize2 className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>
@@ -225,9 +255,9 @@ export default function VideoSection() {
           </div>
         )}
 
-        {/* Gradient Overlays - More subtle on mobile */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/10 md:bg-gradient-to-t md:from-black/40 md:via-transparent md:to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/10 md:bg-gradient-to-r md:from-black/20 md:via-transparent md:to-black/20" />
+        {/* Gradient Overlays - Adjusted for better text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
 
         {/* Content Overlay - Responsive text sizing */}
         <div className="absolute inset-0 flex items-center justify-center px-4 md:px-6">
@@ -240,12 +270,12 @@ export default function VideoSection() {
                 </span>
               </div>
               
-              <h2 className="text-3xl md:text-5xl lg:text-7xl font-light text-white mb-4 md:mb-6 leading-snug md:leading-tight">
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-light text-white mb-4 md:mb-6 leading-snug md:leading-tight px-4">
                 A New Standard of <br className="hidden md:block" />
                 <span className="text-white/95">Urban Living</span>
               </h2>
               
-              <p className="text-base md:text-lg lg:text-xl text-white/80 max-w-2xl mx-auto font-light leading-relaxed px-2 md:px-0">
+              <p className="text-base md:text-lg lg:text-xl text-white/80 max-w-2xl mx-auto font-light leading-relaxed px-4 md:px-0">
                 Discover the perfect harmony of luxury, location, and lifestyle 
                 in the heart of Nugegoda. Where every detail is crafted for 
                 exceptional living.
@@ -254,7 +284,7 @@ export default function VideoSection() {
           </div>
         </div>
 
-        {/* Desktop Video Controls */}
+        {/* Desktop Video Controls (Tablet) */}
         <div className={`
           absolute bottom-0 left-0 right-0 hidden md:block
           p-4 md:p-6
@@ -349,7 +379,7 @@ export default function VideoSection() {
                 {isMuted ? (
                   <VolumeX className="w-4 h-4 md:w-5 md:h-5 group-hover/mute:scale-110 transition-transform" />
                 ) : (
-                  <Volume2 className="w-4 h-4 md:w-5 md:h-5 group-hover/mute:scale-110 transition-transform" />
+                  <Volume2 className="w-4 h-4 md:w-5 md/h-5 group-hover/mute:scale-110 transition-transform" />
                 )}
               </button>
 
@@ -378,7 +408,7 @@ export default function VideoSection() {
         {/* Mobile Controls - Always visible on mobile */}
         {isMobile && <MobileControls />}
 
-        {/* Play Button Overlay (shown when paused on desktop) */}
+        {/* Play Button Overlay (shown when paused on tablet) */}
         {!isPlaying && !isMobile && (
           <button
             onClick={togglePlay}
@@ -408,8 +438,8 @@ export default function VideoSection() {
           </button>
         )}
 
-        {/* Auto-play notice */}
-        <div className="absolute top-4 md:top-6 right-4 md:right-6">
+        {/* Auto-play notice - Positioned better for mobile */}
+        <div className="absolute top-4 right-4 md:top-6 md:right-6">
           <div className="px-3 md:px-4 py-1.5 md:py-2 bg-black/50 backdrop-blur-sm rounded-full">
             <p className="text-white/70 text-xs md:text-sm flex items-center gap-2">
               <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-pulse" />
