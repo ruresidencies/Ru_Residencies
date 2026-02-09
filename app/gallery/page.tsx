@@ -10,9 +10,11 @@ import {
   ChevronRight, 
   Maximize2,
   Home,
-  Building,
   Camera,
-  Sparkles
+  Sparkles,
+  MapPin,
+  Clock,
+  Users
 } from 'lucide-react'
 
 export default function GalleryPage() {
@@ -157,58 +159,117 @@ export default function GalleryPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-white">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.05)_25%,rgba(0,0,0,0.05)_75%,transparent_75%)] bg-[length:50px_50px]" />
+      {/* Hero Section with improved text area */}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900/5 via-white to-gray-900/5">
+        <div className="absolute inset-0">
+          {/* Subtle gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/10 via-transparent to-gray-900/10" />
+          
+          {/* Geometric pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.03]">
+            <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,#000_48%,#000_52%,transparent_52%)] bg-[size:60px_60px]" />
+          </div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24 text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-gray-900/5 to-gray-900/10 mb-8 border border-gray-100">
-            <Camera className="w-10 h-10 text-gray-900" />
+        <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-24 text-center">
+          {/* Enhanced icon container */}
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-gray-900/10 to-gray-900/20 mb-10 border border-gray-200/50 shadow-xl backdrop-blur-sm">
+            <Camera className="w-12 h-12 text-gray-900" />
           </div>
 
+          {/* Main heading with improved typography */}
           <h1 className="
-            font-serif text-5xl lg:text-7xl 
+            font-serif text-5xl lg:text-7xl xl:text-8xl
             font-light text-gray-900 
-            leading-tight tracking-tight
-            mb-6
+            leading-[1.1] tracking-tight
+            mb-8
           ">
             The RU Residencies <br />
-            <span className="text-gray-700">Experience</span>
+            <span className="
+              font-normal text-gray-800 
+              bg-clip-text text-transparent 
+              bg-gradient-to-r from-gray-700 via-gray-900 to-gray-700
+            ">
+              Experience
+            </span>
           </h1>
-          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            A visual celebration of premium living spaces where every detail tells a story of excellence.
+          
+          {/* Enhanced subtitle with better styling */}
+          <div className="relative max-w-2xl mx-auto">
+            <div className="
+              absolute -inset-x-20 -inset-y-6
+              bg-gradient-to-r from-transparent via-gray-50/50 to-transparent
+              rounded-3xl blur-xl opacity-60
+            " />
+            
+            <p className="
+              relative z-10
+              text-xl lg:text-2xl
+              text-gray-700 
+              leading-relaxed
+              font-light
+              px-6 lg:px-12
+            ">
+              A visual journey through premium living spaces where every detail 
+              <span className="
+                font-normal text-gray-800 
+                bg-gradient-to-r from-transparent via-gray-100 to-transparent
+                px-2 mx-1 rounded
+              ">
+                tells a story of excellence
+              </span> 
+              and sophisticated design.
+            </p>
+            
+            {/* Decorative line */}
+            <div className="
+              mt-12
+              w-24 h-px
+              mx-auto
+              bg-gradient-to-r from-transparent via-gray-300 to-transparent
+            " />
+          </div>
+
+          {/* Optional: Add subtle tagline below */}
+          <p className="
+            mt-12
+            text-sm uppercase tracking-widest
+            text-gray-500
+            font-medium
+          ">
+            Visual Gallery • Luxury Living • Nugegoda
           </p>
         </div>
       </section>
 
-      {/* Gallery Filter */}
-      <section className="py-12 bg-white border-b border-gray-100">
+      {/* Gallery Filter with improved styling */}
+      <section className="py-12 bg-gradient-to-b from-white to-gray-50/50 border-y border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`
-                  px-4 py-2
-                  rounded-full
+                  px-5 py-2.5
+                  rounded-xl
                   text-sm font-medium
                   transition-all duration-300
+                  border
                   ${activeCategory === category.id
-                    ? 'bg-gradient-to-r from-gray-900 to-black text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-gray-900 to-black text-white shadow-xl border-transparent'
+                    : 'bg-white/70 backdrop-blur-sm text-gray-700 border-gray-300/50 hover:bg-white hover:border-gray-400 hover:shadow-lg'
                   }
                   flex items-center gap-2
+                  hover:-translate-y-0.5
                 `}
               >
                 {category.label}
                 <span className={`
-                  text-xs px-2 py-0.5 rounded-full
+                  text-xs px-2 py-1 rounded-lg font-semibold
                   ${activeCategory === category.id 
                     ? 'bg-white/20 text-white' 
-                    : 'bg-gray-300 text-gray-700'
+                    : 'bg-gray-100 text-gray-700'
                   }
                 `}>
                   {category.count}
@@ -219,17 +280,17 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Gallery Grid */}
-      <section className="py-24 bg-white">
+      {/* Gallery Grid with improved background */}
+      <section className="py-24 bg-gradient-to-b from-gray-50/30 via-white to-gray-50/30">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="aspect-[4/3] bg-gray-100 rounded-2xl animate-pulse" />
+                <div key={i} className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl animate-pulse" />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredImages.map((image, index) => (
                 <div
                   key={image.id}
@@ -237,11 +298,13 @@ export default function GalleryPage() {
                     group relative
                     overflow-hidden
                     rounded-2xl
-                    bg-gray-100
+                    bg-gradient-to-br from-gray-100 to-gray-200
                     aspect-[4/3]
                     cursor-pointer
                     transition-all duration-500
-                    hover:shadow-2xl hover:scale-[1.02]
+                    hover:shadow-2xl hover:shadow-gray-900/10
+                    hover:scale-[1.02]
+                    border border-gray-300/20
                   "
                   onClick={() => setSelectedImage(image.id)}
                 >
@@ -255,15 +318,16 @@ export default function GalleryPage() {
                       priority={index < 4}
                     />
                     
+                    {/* Enhanced gradient overlay */}
                     <div className="
                       absolute inset-0
-                      bg-gradient-to-t from-gray-900/80 via-gray-900/0 to-transparent
+                      bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent
                       opacity-0
                       group-hover:opacity-100
-                      transition-opacity duration-500
+                      transition-all duration-500
                     " />
                     
-                    {/* Overlay with generic slogan */}
+                    {/* Overlay with generic slogan - improved styling */}
                     <div className="
                       absolute bottom-0 left-0 right-0
                       p-6
@@ -272,27 +336,32 @@ export default function GalleryPage() {
                       transition-transform duration-500
                     ">
                       <div className="text-white">
-                        <h3 className="text-lg font-medium mb-1">
+                        <h3 className="text-lg font-semibold mb-2">
                           {genericSlogans[index % genericSlogans.length]}
                         </h3>
                         <div className="flex items-center gap-2 text-sm text-gray-300">
-                          <Camera className="w-3 h-3" />
-                          <span className="capitalize">{image.category}</span>
+                          <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center">
+                            <Camera className="w-3 h-3" />
+                          </div>
+                          <span className="capitalize font-medium">{image.category}</span>
                         </div>
                       </div>
                     </div>
                     
+                    {/* Enhanced zoom button */}
                     <div className="
                       absolute top-4 right-4
-                      w-10 h-10
-                      rounded-full
-                      bg-white/90 backdrop-blur-sm
+                      w-11 h-11
+                      rounded-xl
+                      bg-white/95 backdrop-blur-sm
                       flex items-center justify-center
                       transform translate-y-2 opacity-0
                       group-hover:translate-y-0 group-hover:opacity-100
                       transition-all duration-500
+                      shadow-lg
+                      border border-gray-200
                     ">
-                      <Maximize2 className="w-4 h-4 text-gray-900" />
+                      <Maximize2 className="w-5 h-5 text-gray-900" />
                     </div>
                   </div>
                 </div>
@@ -302,31 +371,52 @@ export default function GalleryPage() {
           
           {!isLoading && filteredImages.length === 0 && (
             <div className="text-center py-20">
-              <div className="w-20 h-20 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-6">
-                <Camera className="w-10 h-10 text-gray-400" />
+              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-6 shadow-inner border border-gray-300/20">
+                <Camera className="w-12 h-12 text-gray-400" />
               </div>
-              <h3 className="text-xl font-light text-gray-900 mb-3">No images found</h3>
-              <p className="text-gray-600 max-w-md mx-auto">
-                Try selecting a different category to view our gallery.
+              <h3 className="text-2xl font-light text-gray-900 mb-4">No images found in this category</h3>
+              <p className="text-gray-600 max-w-md mx-auto mb-8">
+                Try selecting a different category to explore our complete gallery collection.
               </p>
+              <button
+                onClick={() => setActiveCategory('all')}
+                className="
+                  px-6 py-3
+                  rounded-xl
+                  bg-gradient-to-r from-gray-900 to-black
+                  text-white font-medium
+                  hover:shadow-lg
+                  transition-all duration-300
+                  hover:-translate-y-0.5
+                "
+              >
+                View All Photos
+              </button>
             </div>
           )}
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+      {/* Enhanced Experience Section */}
+      <section className="py-24 bg-gradient-to-b from-white via-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="
-            bg-gradient-to-br from-gray-900 to-black
+            bg-gradient-to-br from-gray-900 via-gray-800 to-black
             rounded-3xl
             overflow-hidden
             shadow-2xl
+            relative
+            border border-gray-800
           ">
-            <div className="grid lg:grid-cols-2 items-center">
+            {/* Subtle pattern overlay */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0 bg-[linear-gradient(30deg,transparent_25%,rgba(255,255,255,0.1)_25%,rgba(255,255,255,0.1)_75%,transparent_75%)] bg-[size:50px_50px]" />
+            </div>
+
+            <div className="grid lg:grid-cols-2 items-center relative z-10">
               <div className="p-12 lg:p-16 text-white">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white/10 mb-8">
-                  <Sparkles className="w-7 h-7" />
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 mb-8 border border-white/10 shadow-lg">
+                  <Sparkles className="w-8 h-8" />
                 </div>
                 
                 <h2 className="
@@ -334,41 +424,41 @@ export default function GalleryPage() {
                   font-light 
                   mb-6
                 ">
-                  Beyond the Lens
+                  Experience the <br />
+                  <span className="text-white">Real Elegance</span>
                 </h2>
                 
-                <p className="text-gray-300 text-lg mb-8 max-w-lg">
-                  These images capture moments, but the true essence of luxury living 
-                  must be experienced in person. Feel the quality, breathe the space, 
-                  and envision your life at RU Residencies.
+                <p className="text-gray-300 text-lg mb-10 max-w-lg leading-relaxed">
+                  While our gallery captures the beauty, the true essence of luxury living 
+                  must be experienced firsthand. Feel the quality materials, breathe the 
+                  thoughtfully designed spaces, and envision your life unfolding at RU Residencies.
                 </p>
                 
-                <div className="flex flex-wrap gap-4">
+                <div className="space-y-4">
                   <Link href="/schedule-viewing" className="block">
                     <div
                       className="
                         group relative
-                        inline-flex items-center
-                        rounded-full
-                        px-8 py-3.5
-                        text-base font-medium
-                        text-white
+                        inline-flex items-center justify-center
+                        rounded-xl
+                        px-10 py-4
+                        text-base font-semibold
+                        text-gray-900
                         overflow-hidden
                         transition-all duration-500
-                        before:absolute before:inset-0 
-                        before:bg-white
-                        before:translate-x-[-100%] before:transition-transform before:duration-500
-                        hover:before:translate-x-0
-                        hover:text-gray-900
-                        border border-white/30
+                        bg-gradient-to-r from-white via-gray-100 to-white
+                        hover:shadow-2xl hover:scale-[1.02]
+                        border border-white/20
                         cursor-pointer
+                        w-full sm:w-auto
                       "
                     >
-                      <span className="relative z-10 flex items-center gap-2">
-                        Experience It Live
+                      <span className="relative z-10 flex items-center gap-3">
+                        <Home className="w-5 h-5" />
+                        Schedule a Private Tour
                         <span className="
                           inline-block transform transition-transform duration-500
-                          group-hover:translate-x-1
+                          group-hover:translate-x-2
                         ">
                           →
                         </span>
@@ -376,34 +466,38 @@ export default function GalleryPage() {
                     </div>
                   </Link>
                   
-                  <Link href="/contact" className="block">
-                    <div
-                      className="
-                        inline-flex items-center
-                        rounded-full
-                        px-8 py-3.5
-                        text-base font-medium
-                        text-white
-                        border border-white/30
-                        transition-all duration-300
-                        hover:bg-white/10 hover:border-white/50
-                        hover:shadow-lg
-                        cursor-pointer
-                      "
-                    >
-                      Request More Photos
-                    </div>
-                  </Link>
+                  <p className="text-gray-400 text-sm mt-6">
+                    Limited availability. Contact us today to secure your preferred unit.
+                  </p>
                 </div>
               </div>
               
-              <div className="relative h-64 lg:h-full min-h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center p-8">
-                <div className="text-center">
-                  <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-6">
-                    <Home className="w-10 h-10 text-white" />
+              <div className="relative h-64 lg:h-full min-h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center p-12">
+                <div className="text-center max-w-sm">
+                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center mx-auto mb-8 border border-white/10 shadow-xl">
+                    <Home className="w-12 h-12 text-white" />
                   </div>
-                  <p className="text-white/80 text-lg">Your Future Home Awaits</p>
-                  <p className="text-white/60 text-sm mt-2">Schedule your private viewing today</p>
+                  <p className="text-white/90 text-xl font-light mb-4">Your Future Home Awaits</p>
+                  <p className="text-white/70 text-base">Experience luxury living in the heart of Nugegoda</p>
+                  
+                  <div className="grid grid-cols-2 gap-4 mt-10">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white mb-1">24/7</div>
+                      <div className="text-sm text-white/70">Security</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white mb-1">Premium</div>
+                      <div className="text-sm text-white/70">Amenities</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white mb-1">Prime</div>
+                      <div className="text-sm text-white/70">Location</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white mb-1">Luxury</div>
+                      <div className="text-sm text-white/70">Finishes</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -415,23 +509,26 @@ export default function GalleryPage() {
       {selectedImage !== null && (
         <div className="
           fixed inset-0 z-[9999]
-          bg-black/95 backdrop-blur-lg
+          bg-gradient-to-br from-black via-gray-900 to-black
           flex items-center justify-center
           p-4
           animate-in fade-in duration-300
+          backdrop-blur-lg
         ">
           <button
             onClick={() => setSelectedImage(null)}
             className="
               absolute top-6 right-6
               w-12 h-12
-              rounded-full
-              bg-white/10
+              rounded-xl
+              bg-white/10 backdrop-blur-sm
               flex items-center justify-center
               text-white
               hover:bg-white/20
               transition-all duration-300
               z-50
+              border border-white/10
+              hover:scale-110
             "
           >
             <X className="w-6 h-6" />
@@ -442,13 +539,15 @@ export default function GalleryPage() {
             className="
               absolute left-6 top-1/2 -translate-y-1/2
               w-12 h-12
-              rounded-full
-              bg-white/10
+              rounded-xl
+              bg-white/10 backdrop-blur-sm
               flex items-center justify-center
               text-white
               hover:bg-white/20
               transition-all duration-300
               z-50
+              border border-white/10
+              hover:scale-110
             "
           >
             <ChevronLeft className="w-6 h-6" />
@@ -459,13 +558,15 @@ export default function GalleryPage() {
             className="
               absolute right-6 top-1/2 -translate-y-1/2
               w-12 h-12
-              rounded-full
-              bg-white/10
+              rounded-xl
+              bg-white/10 backdrop-blur-sm
               flex items-center justify-center
               text-white
               hover:bg-white/20
               transition-all duration-300
               z-50
+              border border-white/10
+              hover:scale-110
             "
           >
             <ChevronRight className="w-6 h-6" />
@@ -480,7 +581,7 @@ export default function GalleryPage() {
               
               return (
                 <div className="flex flex-col lg:flex-row h-full gap-8">
-                  <div className="relative flex-1 rounded-2xl overflow-hidden">
+                  <div className="relative flex-1 rounded-2xl overflow-hidden border border-white/10">
                     <Image
                       src={image.src}
                       alt={image.alt}
@@ -490,40 +591,40 @@ export default function GalleryPage() {
                     />
                   </div>
                   
-                  <div className="lg:w-96 p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                        <Camera className="w-5 h-5 text-white" />
+                  <div className="lg:w-96 p-8 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+                        <Camera className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-400">Category</p>
-                        <p className="text-white font-medium capitalize">{image.category}</p>
+                        <p className="text-sm text-gray-400 font-medium">CATEGORY</p>
+                        <p className="text-white font-semibold text-lg capitalize">{image.category}</p>
                       </div>
                     </div>
                     
-                    <h3 className="text-2xl font-light text-white mb-4">
+                    <h3 className="text-2xl font-light text-white mb-6 leading-tight">
                       {genericSlogans[sloganIndex % genericSlogans.length]}
                     </h3>
                     
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                       <div className="pt-6 border-t border-white/10">
-                        <h4 className="text-sm text-gray-300 mb-3">Why Choose RU Residencies?</h4>
-                        <ul className="space-y-2">
-                          <li className="flex items-center gap-3 text-white text-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                            Premium finishes throughout
+                        <h4 className="text-sm text-gray-300 font-semibold mb-4">FEATURES & AMENITIES</h4>
+                        <ul className="space-y-3">
+                          <li className="flex items-center gap-3 text-white">
+                            <div className="w-2 h-2 rounded-full bg-white" />
+                            Premium imported finishes
                           </li>
-                          <li className="flex items-center gap-3 text-white text-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                            Strategic Nugegoda location
+                          <li className="flex items-center gap-3 text-white">
+                            <div className="w-2 h-2 rounded-full bg-white" />
+                            Smart home integration
                           </li>
-                          <li className="flex items-center gap-3 text-white text-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                            Comprehensive amenities
+                          <li className="flex items-center gap-3 text-white">
+                            <div className="w-2 h-2 rounded-full bg-white" />
+                            Energy-efficient design
                           </li>
-                          <li className="flex items-center gap-3 text-white text-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                            24/7 security & maintenance
+                          <li className="flex items-center gap-3 text-white">
+                            <div className="w-2 h-2 rounded-full bg-white" />
+                            24/7 concierge service
                           </li>
                         </ul>
                       </div>
@@ -533,18 +634,19 @@ export default function GalleryPage() {
                           <div
                             className="
                               w-full
-                              py-3.5
+                              py-4
                               rounded-xl
                               bg-gradient-to-r from-white to-gray-200
                               text-gray-900
                               text-center
-                              font-medium
+                              font-semibold
                               transition-all duration-300
-                              hover:shadow-xl hover:scale-[1.02]
+                              hover:shadow-2xl hover:scale-[1.02]
                               cursor-pointer
+                              border border-white/20
                             "
                           >
-                            Schedule a Private Tour
+                            Book Your Private Tour
                           </div>
                         </Link>
                       </div>
@@ -556,14 +658,18 @@ export default function GalleryPage() {
           </div>
           
           <div className="
-            absolute bottom-6 left-1/2 -translate-x-1/2
-            px-4 py-2
-            rounded-full
-            bg-white/10 backdrop-blur-sm
-            text-white text-sm
+            absolute bottom-8 left-1/2 -translate-x-1/2
+            px-6 py-2.5
+            rounded-xl
+            bg-white/10 backdrop-blur-md
+            text-white text-sm font-medium
             border border-white/10
+            flex items-center gap-2
           ">
-            {filteredImages.findIndex(img => img.id === selectedImage) + 1} / {filteredImages.length}
+            <span className="text-gray-300">Image</span>
+            {filteredImages.findIndex(img => img.id === selectedImage) + 1} 
+            <span className="text-gray-300">of</span> 
+            {filteredImages.length}
           </div>
         </div>
       )}

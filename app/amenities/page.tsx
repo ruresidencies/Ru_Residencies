@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronRight, Check, Shield, Car, Users, Building, Dumbbell, Coffee, Wifi, Wind, Banknote, Landmark, FileText } from 'lucide-react'
+import { ChevronRight, Check, Shield, Car, Users, Building, Dumbbell, Coffee, Wifi, Wind, Banknote, Landmark, FileText, Home, Handshake } from 'lucide-react'
 
 export default function AmenitiesPage() {
   const [activeCategory, setActiveCategory] = useState('all')
@@ -233,42 +233,23 @@ export default function AmenitiesPage() {
         </div>
       </div>
 
-      {/* Bank Loan Section - Updated with better image */}
+      {/* Bank Loan Facilities - BLACK TEXT BUTTON FIX */}
       <div className="bg-gradient-to-br from-gray-50 to-white py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 rounded-xl bg-gradient-to-r from-navy-700 to-blue-800 shadow-md">
-                  <FileText className="w-6 h-6 text-white" />
+                  <Home className="w-6 h-6 text-white" />
                 </div>
                 <h2 className="font-serif text-3xl lg:text-4xl font-light text-gray-900">
-                  Home Loan Assistance
+                  Own Your Dream Home Today
                 </h2>
               </div>
               <p className="text-gray-600 text-lg mb-8">
-                We provide comprehensive home loan assistance through our partnerships with leading 
-                Sri Lankan financial institutions. Get expert guidance for your property financing needs in LKR.
+                Want to move in but need financing? We've got you covered! Our team works with top Sri Lankan banks to help you secure the perfect home loan. Make your dream home a reality with our hassle-free loan assistance.
               </p>
               
-              <div className="space-y-4">
-                {[
-                  'Loan application assistance',
-                  'Multiple bank tie-ups available',
-                  'Documentation guidance',
-                  'Quick processing support',
-                  'Competitive LKR interest rates',
-                  'Flexible repayment options'
-                ].map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-4 h-4 text-green-600" />
-                    </div>
-                    <span className="text-gray-700">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-
               <div className="mt-10">
                 <Link href="/schedule-viewing">
                   <button className="
@@ -277,17 +258,16 @@ export default function AmenitiesPage() {
                     rounded-full
                     px-8 py-3.5
                     text-sm font-medium
-                    text-white
+                    bg-gradient-to-r from-white to-gray-100
+                    text-black
+                    hover:from-gray-100 hover:to-gray-200
                     overflow-hidden
                     transition-all duration-500
-                    before:absolute before:inset-0 
-                    before:bg-gradient-to-r before:from-navy-700 before:to-blue-800
-                    before:translate-x-[-100%] before:transition-transform before:duration-500
-                    hover:before:translate-x-0
                     hover:shadow-2xl
-                    border border-navy-700
+                    border border-gray-300
+                    shadow-md
                   ">
-                    <span className="relative z-10 flex items-center gap-2">
+                    <span className="flex items-center gap-2">
                       Get Loan Assistance
                       <ChevronRight className="w-4 h-4 transform transition-transform duration-500 group-hover:translate-x-1" />
                     </span>
@@ -296,33 +276,38 @@ export default function AmenitiesPage() {
               </div>
             </div>
 
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
-              {/* Changed to a more appropriate Sri Lankan/Asian financial image */}
+            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl group">
+              {/* Changed to a better home/financing image */}
               <Image
-                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80"
-                alt="Home Loan Assistance"
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80"
+                alt="Happy family with new home keys"
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
                 quality={100}
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-navy-700/30 via-blue-800/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-navy-700/40 via-blue-800/30 to-transparent" />
               
-              {/* Sri Lankan Rupee Symbol Overlay */}
+              {/* Overlay with better text */}
               <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
                 <div className="text-center max-w-md">
-                  <div className="inline-block p-6 rounded-2xl bg-white/95 backdrop-blur-sm shadow-2xl mb-6">
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="text-4xl font-bold text-navy-700">Rs</div>
-                      <div className="text-5xl font-bold text-navy-700">LKR</div>
-                      <div className="text-4xl font-bold text-navy-700">₨</div>
+                  <div className="inline-block p-8 rounded-2xl bg-white/95 backdrop-blur-sm shadow-2xl mb-6 transform group-hover:scale-105 transition-transform duration-500">
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="flex items-center justify-center gap-6">
+                        <Handshake className="w-12 h-12 text-navy-700" />
+                      </div>
+                      <div className="text-2xl text-gray-900 font-bold mt-4">
+                        Easy Financing Options
+                      </div>
+                      <div className="text-gray-700 text-base mt-2">
+                        We partner with major banks to make home ownership easy
+                      </div>
                     </div>
-                    <div className="text-lg text-gray-700 font-medium mt-4">Sri Lankan Rupee Financing</div>
                   </div>
-                  <div className="mt-4">
-                    <div className="text-white text-base font-medium bg-gradient-to-r from-navy-700/90 to-blue-800/90 backdrop-blur-sm px-6 py-3 rounded-full inline-block">
-                      <div className="flex items-center gap-2">
-                        <Banknote className="w-4 h-4" />
-                        <span>Local Currency Home Loans</span>
+                  <div className="mt-6">
+                    <div className="text-black text-base font-medium bg-gradient-to-r from-yellow-400 to-yellow-300 backdrop-blur-sm px-8 py-4 rounded-full inline-block transform hover:scale-105 transition-transform duration-300 shadow-lg">
+                      <div className="flex items-center gap-3">
+                        <Check className="w-5 h-5 text-black" />
+                        <span>Low Interest Rates</span>
                       </div>
                     </div>
                   </div>

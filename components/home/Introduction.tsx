@@ -365,27 +365,30 @@ export default function Introduction({ className = '' }: IntroductionProps) {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 0.6, type: 'tween' as const }}
+            className="relative"
           >
-            <MinimalCard className="p-8">
-              <div className="relative">
-                <motion.div
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.6, type: 'tween' as const }}
-                  className="absolute -top-4 left-1/2 -translate-x-1/2"
-                >
-                  <div 
-                    className="px-6 py-2 rounded-full text-sm font-medium tracking-wide"
-                    style={{
-                      backgroundColor: colors.primary,
-                      color: colors.accent,
-                    }}
-                  >
-                    PREMIUM AMENITIES
-                  </div>
-                </motion.div>
+            {/* PREMIUM AMENITIES Badge - Fixed positioning with proper z-index */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: -10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, type: 'tween' as const }}
+              className="absolute -top-3 left-1/2 -translate-x-1/2 z-20"
+            >
+              <div 
+                className="px-6 py-2 rounded-full text-sm font-medium tracking-wide whitespace-nowrap shadow-lg"
+                style={{
+                  backgroundColor: colors.primary,
+                  color: colors.accent,
+                }}
+              >
+                PREMIUM AMENITIES
+              </div>
+            </motion.div>
 
-                <div className="grid grid-cols-2 gap-3 mt-12">
+            <MinimalCard className="p-8 pt-12 mt-4"> {/* Added pt-12 and mt-4 for proper spacing */}
+              <div className="relative">
+                {/* Features Grid - Increased margin-top to prevent overlap */}
+                <div className="grid grid-cols-2 gap-3 mt-4"> {/* Changed from mt-12 to mt-4 */}
                   {features.map((feature, index) => (
                     <motion.div
                       key={index}
@@ -411,6 +414,9 @@ export default function Introduction({ className = '' }: IntroductionProps) {
                               ? 'bg-primary'
                               : 'bg-gray-100'
                           }`}
+                          style={{
+                            flexShrink: 0 // Prevent icon container from shrinking
+                          }}
                         >
                           <div className={
                             hoveredFeature === index 
@@ -420,7 +426,7 @@ export default function Introduction({ className = '' }: IntroductionProps) {
                             {feature.icon}
                           </div>
                         </div>
-                        <span className={`text-sm ${
+                        <span className={`text-sm truncate ${
                           hoveredFeature === index
                             ? 'text-primary font-medium'
                             : 'text-gray-700'
