@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Container from '@/components/ui/Container';
 import { MapPin, Award, Building, Shield, Dumbbell, Car, Trees, Zap, ChevronRight } from 'lucide-react';
 import * as THREE from 'three';
@@ -348,11 +348,6 @@ export default function Introduction({ className = '' }: IntroductionProps) {
   const scale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
   const y = useTransform(scrollYProgress, [0, 0.2], [50, 0]);
   const rotateX = useTransform(scrollYProgress, [0, 0.5], [5, 0]);
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ['#ffffff', '#f8fafc']
-  );
 
   useEffect(() => {
     setIsVisible(true);
@@ -594,12 +589,11 @@ export default function Introduction({ className = '' }: IntroductionProps) {
                   </motion.span>{' '}
                   at{' '}
                   <motion.span 
-                    className="font-medium" 
+                    className="font-medium bg-gradient-to-r from-transparent via-blue-50 to-transparent bg-[length:0%_100%] bg-no-repeat bg-left-bottom" 
                     style={{ color: colors.primary }}
                     initial={{ backgroundSize: '0% 100%' }}
                     whileInView={{ backgroundSize: '100% 100%' }}
                     transition={{ duration: 1.5 }}
-                    className="bg-gradient-to-r from-transparent via-blue-50 to-transparent bg-[length:0%_100%] bg-no-repeat bg-left-bottom"
                   >
                     6C, Pelawatte Road, Nugegoda
                   </motion.span>, 
@@ -710,7 +704,6 @@ export default function Introduction({ className = '' }: IntroductionProps) {
               initial={{ scale: 0.5, opacity: 0, y: -20 }}
               whileInView={{ scale: 1, opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ type: 'spring', stiffness: 200 }}
               className={`absolute ${isMobile ? '-top-2' : '-top-3'} left-1/2 -translate-x-1/2 z-20`}
               animate={{
                 y: [0, -5, 0],
