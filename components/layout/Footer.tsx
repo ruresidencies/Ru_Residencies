@@ -1,15 +1,26 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { FaFacebook, FaClock, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChevronUp } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { FaFacebook, FaClock, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChevronUp, FaVideo } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Footer = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleVirtualToursClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowComingSoon(true);
+    
+    // Auto-hide the message after 5 seconds
+    setTimeout(() => {
+      setShowComingSoon(false);
+    }, 5000);
   };
 
   return (
@@ -142,7 +153,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Quick Links */}
+          {/* Quick Links - UPDATED */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -154,20 +165,41 @@ const Footer = () => {
               Quick Links
             </h3>
             
-            <div className="space-y-3">
-              {['Premium Properties', 'Investment Portfolio', 'Virtual Tours', 'Client Testimonials', 'About Us', 'Strategic Locations'].map((link, idx) => (
-                <motion.a
-                  key={idx}
-                  href="#"
-                  whileHover={{ x: 5, color: '#a8843a' }}
-                  className="block text-ink-secondary hover:text-accent-gold transition-colors duration-300 group"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-1 h-1 bg-accent-gold/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span>{link}</span>
+            <div className="space-y-6">
+              {/* Virtual Tours Button */}
+              <motion.button
+                onClick={handleVirtualToursClick}
+                whileHover={{ x: 5, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full p-4 bg-gradient-to-r from-accent-gold/5 to-accent-goldDark/5 rounded-xl border border-accent-gold/20 hover:border-accent-gold/40 transition-all duration-300 group text-left"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-accent-gold/10 rounded-lg group-hover:bg-accent-gold/20 transition-colors duration-300">
+                    <FaVideo className="text-accent-gold text-xl" />
                   </div>
-                </motion.a>
-              ))}
+                  <div>
+                    <h4 className="font-semibold text-ink-primary group-hover:text-accent-gold transition-colors duration-300">
+                      Virtual Tours
+                    </h4>
+                    <p className="text-sm text-ink-muted mt-1">
+                      Immersive Property Experiences
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-accent-gold rounded-full animate-pulse" />
+                  <span className="text-xs text-accent-gold font-medium">
+                    Coming Soon
+                  </span>
+                </div>
+              </motion.button>
+
+              {/* Empty state message */}
+              <div className="p-4 bg-base-offwhite/50 rounded-lg border border-line/30">
+                <p className="text-sm text-ink-muted italic text-center">
+                  Additional navigation options will be available soon
+                </p>
+              </div>
             </div>
           </motion.div>
 
@@ -261,15 +293,24 @@ const Footer = () => {
 
           {/* Additional Links */}
           <div className="flex flex-wrap justify-center gap-4 text-sm">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link, idx) => (
-              <a
-                key={idx}
-                href="#"
-                className="text-ink-muted hover:text-ink-primary transition-colors duration-300"
-              >
-                {link}
-              </a>
-            ))}
+            <a
+              href="/privacy-policy"
+              className="text-ink-muted hover:text-ink-primary transition-colors duration-300"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/terms-of-service"
+              className="text-ink-muted hover:text-ink-primary transition-colors duration-300"
+            >
+              Terms of Service
+            </a>
+            <a
+              href="/cookie-policy"
+              className="text-ink-muted hover:text-ink-primary transition-colors duration-300"
+            >
+              Cookie Policy
+            </a>
           </div>
 
           {/* Back to Top */}
@@ -294,6 +335,45 @@ const Footer = () => {
         <span>•</span>
         <span>Ru Residencies</span>
       </div>
+
+      {/* Coming Soon Modal */}
+      <AnimatePresence>
+        {showComingSoon && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50"
+          >
+            <div className="px-6 py-4 bg-gradient-to-r from-accent-gold to-accent-goldDark text-white rounded-xl shadow-xl max-w-sm">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-white/20 rounded-lg">
+                  <FaVideo className="text-lg" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Virtual Tours</h4>
+                  <p className="text-sm opacity-90">
+                    Immersive property experiences are currently in development. 
+                    We're crafting an exceptional virtual journey for you.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                  <span className="text-xs font-medium">Launching Soon</span>
+                </div>
+                <button
+                  onClick={() => setShowComingSoon(false)}
+                  className="text-xs opacity-75 hover:opacity-100 transition-opacity"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </footer>
   );
 };

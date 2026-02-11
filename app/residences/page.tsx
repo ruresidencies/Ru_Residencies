@@ -418,7 +418,7 @@ export default function ResidencesPage() {
             ))}
           </div>
 
-          {/* Pricing Note */}
+          {/* Pricing Note - UPDATED */}
           <div className="
             mt-20
             bg-gradient-to-r from-gray-50 to-gray-100/50
@@ -437,7 +437,10 @@ export default function ResidencesPage() {
               Our residences offer unmatched quality and amenities in the heart of Nugegoda. 
               Competitive pricing ensures you receive premium living without compromise.
             </p>
-            <Link href="/contact" className="block">
+            <a 
+              href="tel:+94772112117" 
+              className="inline-block"
+            >
               <div
                 className="
                   inline-flex items-center gap-2
@@ -459,12 +462,12 @@ export default function ResidencesPage() {
                   →
                 </span>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - UPDATED (Removed Request Floor Plans button) */}
       <section className="py-24 bg-gradient-to-br from-gray-900 to-black text-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="
@@ -479,7 +482,7 @@ export default function ResidencesPage() {
             and lifestyle that defines RU Residencies.
           </p>
           
-          <div className="flex flex-wrap gap-6 justify-center">
+          <div className="flex justify-center">
             <Link href="/schedule-viewing" className="block">
               <div
                 className="
@@ -509,25 +512,6 @@ export default function ResidencesPage() {
                     →
                   </span>
                 </span>
-              </div>
-            </Link>
-            
-            <Link href="/contact" className="block">
-              <div
-                className="
-                  inline-flex items-center
-                  rounded-full
-                  px-10 py-4
-                  text-base font-medium
-                  text-white
-                  border border-white/30
-                  transition-all duration-300
-                  hover:bg-white/10 hover:border-white/50
-                  hover:shadow-lg
-                  cursor-pointer
-                "
-              >
-                Request Floor Plans
               </div>
             </Link>
           </div>

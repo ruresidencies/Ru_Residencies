@@ -223,9 +223,11 @@ export default function Hero() {
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-8'
           }`}>
-            <button className="px-8 py-3 bg-white text-black font-medium tracking-wide hover:bg-white/90 transition-all duration-300 transform hover:-translate-y-0.5">
-              Explore Residences
-            </button>
+            <Link href="/residences">
+              <button className="px-8 py-3 bg-white text-black font-medium tracking-wide hover:bg-white/90 transition-all duration-300 transform hover:-translate-y-0.5">
+                Explore Residences
+              </button>
+            </Link>
             <Link href="/gallery">
               <button className="px-8 py-3 border-2 border-white/30 text-white font-medium tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5">
                 View Gallery

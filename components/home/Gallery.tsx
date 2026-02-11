@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface GalleryItem {
   id: number;
@@ -50,6 +51,7 @@ export default function Gallery() {
   const [is3DMode, setIs3DMode] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -90,6 +92,11 @@ export default function Gallery() {
       }
     };
   }, [is3DMode]);
+
+  // Handle gallery button click
+  const handleViewAllGallery = () => {
+    router.push('/gallery'); // Change this to your actual gallery page route
+  };
 
   // Only render floating particles on client side
   const FloatingParticles = () => {
@@ -284,23 +291,35 @@ export default function Gallery() {
           </AnimatePresence>
         </motion.div>
 
-        {/* View All Button */}
+        {/* View All Gallery Button */}
         <motion.div
           className="text-center mt-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          <button className="group relative px-8 py-4 rounded-full overflow-hidden">
+          <button 
+            onClick={handleViewAllGallery}
+            className="group relative px-8 py-4 rounded-full overflow-hidden transition-transform duration-300 hover:scale-105"
+          >
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-accent-gold to-accent-goldDark"
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.3 }}
             />
             <span className="relative z-10 text-base-white text-sm font-medium tracking-wider">
-              View All Projects
+              View All Gallery
             </span>
             <div className="absolute inset-0 border border-accent-gold/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* Arrow icon */}
+            <svg 
+              className="absolute right-6 top-1/2 transform -translate-y-1/2 w-5 h-5 text-base-white opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </button>
         </motion.div>
       </motion.div>
