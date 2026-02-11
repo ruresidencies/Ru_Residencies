@@ -36,7 +36,7 @@ export default function ResidenciesPreview() {
     },
     {
       type: 'Type D',
-      size: '1,439 sq. ft.',
+      size: '1,377 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
       description: 'Corner unit featuring enhanced privacy and cross-ventilation.',
       image: '/images/D.png',
