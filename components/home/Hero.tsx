@@ -184,7 +184,7 @@ export default function Hero() {
 
       {/* Content - Text stays fixed and only animates once */}
       <Container className="relative z-10">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl pb-32 lg:pb-40 xl:pb-20">
           <div className="overflow-hidden">
             <h1 className={`text-5xl md:text-7xl lg:text-8xl font-light leading-[1.1] md:leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
               isTextVisible 
@@ -217,19 +217,19 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Call to Action */}
-          <div className={`mt-10 md:mt-12 flex items-center gap-6 transition-all duration-1000 delay-500 ${
+          {/* Call to Action - Stack on smaller screens */}
+          <div className={`mt-10 md:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 transition-all duration-1000 delay-500 ${
             isTextVisible 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-8'
           }`}>
-            <Link href="/residences">
-              <button className="px-8 py-3 bg-white text-black font-medium tracking-wide hover:bg-white/90 transition-all duration-300 transform hover:-translate-y-0.5">
+            <Link href="/residences" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-8 py-3 bg-white text-black font-medium tracking-wide hover:bg-white/90 transition-all duration-300 transform hover:-translate-y-0.5">
                 Explore Residences
               </button>
             </Link>
-            <Link href="/gallery">
-              <button className="px-8 py-3 border-2 border-white/30 text-white font-medium tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5">
+            <Link href="/gallery" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-8 py-3 border-2 border-white/30 text-white font-medium tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5">
                 View Gallery
               </button>
             </Link>
@@ -237,8 +237,8 @@ export default function Hero() {
         </div>
       </Container>
 
-      {/* FIXED: High-End Video Player Window - Desktop Only - Repositioned to avoid overlap */}
-      <div className="relative lg:block lg:absolute lg:z-30 lg:right-8 lg:top-8 hidden">
+      {/* High-End Video Player Window - Desktop Only */}
+      <div className="hidden lg:block absolute z-30 right-8 top-8">
         {showVideoPlayer && (
           <div 
             className={`transition-all duration-500 ${
@@ -412,9 +412,9 @@ export default function Hero() {
         )}
       </div>
 
-      {/* Slideshow Controls - Mobile responsive */}
-      <div className="absolute bottom-20 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20 w-full px-4 md:px-0 md:w-auto">
-        <div className="flex items-center gap-4 md:gap-6 bg-black/30 backdrop-blur-sm px-4 md:px-6 py-3 rounded-full justify-center">
+      {/* Slideshow Controls - Fixed positioning */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 w-full px-4">
+        <div className="flex items-center gap-4 md:gap-6 bg-black/30 backdrop-blur-sm px-4 md:px-6 py-3 rounded-full mx-auto w-fit">
           <button
             onClick={prevSlide}
             className="p-2 text-white/80 hover:text-white transition-colors"
@@ -463,7 +463,7 @@ export default function Hero() {
       </div>
 
       {/* Slide Number Display */}
-      <div className="absolute bottom-8 md:bottom-8 right-4 md:right-8 z-20">
+      <div className="absolute bottom-8 right-4 md:right-8 z-20">
         <div className="flex items-center gap-2 text-white/70 text-sm font-light">
           <span className="text-xl md:text-2xl font-normal text-white">
             {(currentSlide + 1).toString().padStart(2, '0')}
@@ -473,16 +473,16 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-8 z-20 hidden md:block">
+      {/* Scroll Indicator - Hidden on medium screens to prevent overlap */}
+      <div className="absolute bottom-8 left-8 z-20 hidden xl:block">
         <div className="flex flex-col items-center gap-2 text-white/50 text-sm font-light tracking-wider">
           <span className="rotate-90 mb-2">SCROLL</span>
           <div className="h-16 w-px bg-gradient-to-b from-white/50 to-transparent" />
         </div>
       </div>
 
-      {/* Subtle gradient at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 md:h-32 bg-gradient-to-t from-black/40 to-transparent z-10" />
+      {/* Subtle gradient at bottom - Increased height for better separation */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 md:h-40 bg-gradient-to-t from-black/60 to-transparent z-10" />
     </section>
   );
 }
