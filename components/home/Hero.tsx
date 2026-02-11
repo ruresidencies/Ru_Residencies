@@ -237,11 +237,11 @@ export default function Hero() {
         </div>
       </Container>
 
-      {/* High-End Video Player Window - Desktop Only */}
-      <div className="relative">
+      {/* FIXED: High-End Video Player Window - Desktop Only - Repositioned to avoid overlap */}
+      <div className="relative lg:block lg:absolute lg:z-30 lg:right-8 lg:top-8 hidden">
         {showVideoPlayer && (
           <div 
-            className={`hidden lg:block absolute top-8 right-8 z-30 transition-all duration-500 ${
+            className={`transition-all duration-500 ${
               isFullscreen 
                 ? 'fixed inset-0 z-50 bg-black' 
                 : isHovered 
@@ -396,7 +396,7 @@ export default function Hero() {
         {/* Floating Icon to Reopen Video Player - Desktop Only */}
         {!showVideoPlayer && (
           <div 
-            className="hidden lg:block absolute top-8 right-8 z-30 cursor-pointer group"
+            className="cursor-pointer group"
             onClick={() => setShowVideoPlayer(true)}
           >
             <div className="relative">
