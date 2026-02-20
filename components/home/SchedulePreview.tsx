@@ -539,7 +539,7 @@ export default function SchedulePreview() {
               <ul className="space-y-1.5 md:space-y-2">
                 {[
                   { icon: Clock, text: "Arrive 10 minutes before your scheduled time" },
-                  { text: "Bring valid photo ID for verification" },
+                 
                   { text: "Wear comfortable shoes for property tours" },
                   { text: "Prepare questions for our specialists" }
                 ].map((tip, index) => (

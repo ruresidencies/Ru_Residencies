@@ -185,55 +185,89 @@ export default function Hero() {
       {/* Content - Fixed padding to prevent overlap with controls */}
       <Container className="relative z-10">
         <div className="max-w-3xl pb-24 md:pb-32 lg:pb-36 xl:pb-20 2xl:pb-24">
-          <div className="overflow-hidden">
-            <h1 className={`text-5xl md:text-7xl lg:text-8xl font-light leading-[1.1] md:leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
-              isTextVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}>
-              Elevated
-              <span className="block mt-4 text-white/95 pb-2 md:pb-0">Living</span>
-            </h1>
-          </div>
-          
-          <div className="mt-6 md:mt-8 lg:mt-12 overflow-hidden">
-            <p className={`text-xl md:text-2xl font-light text-white/90 tracking-wide transition-all duration-1000 delay-150 ${
-              isTextVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}>
-              in the Heart of Colombo
-            </p>
-          </div>
+          {/* FIRST SLIDE - ONLY Availability Text (Elegant & High Contrast) */}
+          {currentSlide === 0 && (
+            <div className="overflow-hidden">
+              <div className={`transition-all duration-1000 ${
+                isTextVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}>
+                <span className="text-sm md:text-base uppercase tracking-[0.3em] text-white/50 font-light block mb-4">Exclusive Release</span>
+                <div className="flex flex-col">
+                  <span className="text-7xl md:text-8xl lg:text-9xl font-bold text-white leading-none tracking-tight">
+                    12
+                  </span>
+                  <span className="text-3xl md:text-4xl lg:text-5xl font-light text-white/90 mt-2 mb-4">
+                    units remaining
+                  </span>
+                  <div className="flex items-baseline gap-3 mt-4">
+                    <span className="text-2xl md:text-3xl lg:text-4xl font-light text-white/80">from</span>
+                    <span className="text-5xl md:text-6xl lg:text-7xl font-bold text-white">
+                      45M
+                    </span>
+                    <span className="text-2xl md:text-3xl lg:text-4xl text-white/80 font-light">+</span>
+                  </div>
+                  <div className="w-24 h-0.5 bg-white/30 mt-8"></div>
+                </div>
+              </div>
+            </div>
+          )}
 
-          <div className="mt-4 md:mt-6 lg:mt-8 overflow-hidden">
-            <p className={`text-base md:text-lg max-w-xl text-white/80 font-light leading-relaxed transition-all duration-1000 delay-300 ${
-              isTextVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}>
-              Thoughtfully designed residences blending modern architecture,
-              comfort, and timeless elegance.
-            </p>
-          </div>
+          {/* SLIDES 2-4 - Original Content */}
+          {currentSlide !== 0 && (
+            <>
+              <div className="overflow-hidden">
+                <h1 className={`text-5xl md:text-7xl lg:text-8xl font-light leading-[1.1] md:leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
+                  isTextVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-8'
+                }`}>
+                  Elevated
+                  <span className="block mt-4 text-white/95 pb-2 md:pb-0">Living</span>
+                </h1>
+              </div>
+              
+              <div className="mt-6 md:mt-8 lg:mt-12 overflow-hidden">
+                <p className={`text-xl md:text-2xl font-light text-white/90 tracking-wide transition-all duration-1000 delay-150 ${
+                  isTextVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-8'
+                }`}>
+                  in the Heart of Colombo
+                </p>
+              </div>
 
-          {/* Call to Action - Stack on smaller screens */}
-          <div className={`mt-6 md:mt-8 lg:mt-10 xl:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 lg:gap-6 transition-all duration-1000 delay-500 ${
-            isTextVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-8'
-          }`}>
-            <Link href="/residences" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-6 lg:px-8 py-2.5 lg:py-3 bg-white text-black font-medium tracking-wide hover:bg-white/90 transition-all duration-300 transform hover:-translate-y-0.5 text-sm lg:text-base">
-                Explore Residences
-              </button>
-            </Link>
-            <Link href="/gallery" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-6 lg:px-8 py-2.5 lg:py-3 border-2 border-white/30 text-white font-medium tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5 text-sm lg:text-base">
-                View Gallery
-              </button>
-            </Link>
-          </div>
+              <div className="mt-4 md:mt-6 lg:mt-8 overflow-hidden">
+                <p className={`text-base md:text-lg max-w-xl text-white/80 font-light leading-relaxed transition-all duration-1000 delay-300 ${
+                  isTextVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-8'
+                }`}>
+                  Thoughtfully designed residences blending modern architecture,
+                  comfort, and timeless elegance.
+                </p>
+              </div>
+
+              {/* Call to Action - Stack on smaller screens */}
+              <div className={`mt-6 md:mt-8 lg:mt-10 xl:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 lg:gap-6 transition-all duration-1000 delay-500 ${
+                isTextVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}>
+                <Link href="/residences" className="w-full sm:w-auto">
+                  <button className="w-full sm:w-auto px-6 lg:px-8 py-2.5 lg:py-3 bg-white text-black font-medium tracking-wide hover:bg-white/90 transition-all duration-300 transform hover:-translate-y-0.5 text-sm lg:text-base">
+                    Explore Residences
+                  </button>
+                </Link>
+                <Link href="/gallery" className="w-full sm:w-auto">
+                  <button className="w-full sm:w-auto px-6 lg:px-8 py-2.5 lg:py-3 border-2 border-white/30 text-white font-medium tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-0.5 text-sm lg:text-base">
+                    View Gallery
+                  </button>
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </Container>
 

@@ -4,8 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import Container from '@/components/ui/Container';
-import { MapPin, Award, Building, Shield, Dumbbell, Car, Trees, Zap, ChevronRight } from 'lucide-react';
+import { MapPin, Award, Building, Shield, Dumbbell, Car, Trees, Zap, ChevronRight, Flame, Trash2, Droplets, Users } from 'lucide-react';
 import * as THREE from 'three';
 
 interface IntroductionProps {
@@ -331,6 +332,7 @@ function MinimalCard({ children, className = '', scrollProgress }: { children: R
 }
 
 export default function Introduction({ className = '' }: IntroductionProps) {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -363,14 +365,22 @@ export default function Introduction({ className = '' }: IntroductionProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const handleViewDetails = () => {
+    router.push('/residences');
+  };
+
   const features = [
     { icon: <Building className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: '48 Luxury Residential Units' },
     { icon: <MapPin className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Prime Nugegoda Location' },
     { icon: <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: '24-Hour Security & CCTV' },
     { icon: <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Modern Gymnasium' },
-    { icon: <Car className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Car Charging & Washing Area' },
-    { icon: <Trees className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Ample Garden Space' },
-    { icon: <Zap className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Central Gas System' },
+    { icon: <Car className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Parking Area' },
+    { icon: <Zap className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Power Backup (Generator)' },
+    { icon: <Flame className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Fire Safety Systems' },
+    { icon: <Trash2 className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Waste Disposal System' },
+    { icon: <Droplets className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Rooftop Swimming Pool' },
+    { icon: <Award className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Rooftop Function Area' },
+    { icon: <Users className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: 'Common Conference Hall' },
     { icon: <Award className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />, text: '6 Floors of Luxury Living' },
   ];
 
@@ -882,7 +892,7 @@ export default function Introduction({ className = '' }: IntroductionProps) {
                             ease: "easeInOut"
                           }}
                         >
-                          Early 2024
+                          2026
                         </motion.p>
                       </div>
                       <div className="text-left sm:text-right">
@@ -959,6 +969,7 @@ export default function Introduction({ className = '' }: IntroductionProps) {
           
           <div className="relative z-10 flex justify-center">
             <motion.button
+              onClick={handleViewDetails}
               whileHover={{ 
                 scale: isMobile ? 1 : 1.05,
                 boxShadow: '0 20px 40px rgba(59,130,246,0.3)',
@@ -985,7 +996,7 @@ export default function Introduction({ className = '' }: IntroductionProps) {
                   ease: "easeInOut"
                 }
               }}
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 font-medium rounded-lg overflow-hidden"
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 font-medium rounded-lg overflow-hidden cursor-pointer"
               style={{
                 color: colors.accent,
               }}

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { FaFacebook, FaClock, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChevronUp, FaVideo } from 'react-icons/fa';
+import { FaFacebook, FaClock, FaPhone, FaEnvelope, FaMapMarkerAlt, FaChevronUp, FaVideo, FaTiktok, FaInstagram } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Footer = () => {
@@ -216,10 +216,10 @@ const Footer = () => {
                 Stay Connected
               </h3>
               
-              {/* Social Media */}
+              {/* Social Media - UPDATED with actual handles */}
               <div className="flex justify-center lg:justify-start gap-4">
                 <motion.a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/share/1Bq6mSFMUA/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
@@ -228,6 +228,30 @@ const Footer = () => {
                   aria-label="Facebook"
                 >
                   <FaFacebook className="text-ink-secondary group-hover:text-accent-gold transition-colors duration-300" />
+                </motion.a>
+                
+                <motion.a
+                  href="https://www.tiktok.com/@ru.residencies?_r=1&_t=ZS-93pecRu0kiL"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-3 bg-base-offwhite rounded-lg border border-line hover:border-accent-gold/30 transition-all duration-300 group"
+                  aria-label="TikTok"
+                >
+                  <FaTiktok className="text-ink-secondary group-hover:text-accent-gold transition-colors duration-300" />
+                </motion.a>
+                
+                <motion.a
+                  href="https://www.instagram.com/ruresidencies?igsh=cW1sdHFrbXBwNWxm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-3 bg-base-offwhite rounded-lg border border-line hover:border-accent-gold/30 transition-all duration-300 group"
+                  aria-label="Instagram"
+                >
+                  <FaInstagram className="text-ink-secondary group-hover:text-accent-gold transition-colors duration-300" />
                 </motion.a>
               </div>
               

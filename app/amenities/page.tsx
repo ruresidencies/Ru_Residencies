@@ -20,7 +20,7 @@ export default function AmenitiesPage() {
       description: 'Relax and unwind in our serene rooftop pool with panoramic city views',
       category: 'leisure',
       image: 'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
-      features: ['Temperature controlled', 'Panoramic views', 'Sunset seating', 'Poolside lounge']
+      features: ['Panoramic views', 'Sunset seating', 'Poolside lounge']
     },
     {
       id: 'gym',
@@ -28,39 +28,31 @@ export default function AmenitiesPage() {
       description: 'State-of-the-art fitness center with personal training available',
       category: 'fitness',
       image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80',
-      features: ['24/7 access', 'Cardio & weights', 'Yoga studio', 'Personal trainers']
+      features: ['24/7 access', 'Cardio & weights']
     },
-    {
-      id: 'reception',
-      title: 'Reception & Concierge',
-      description: '24/7 concierge service with valet and personal assistance',
-      category: 'services',
-      image: '/images/reception.jpg',
-      features: ['24/7 concierge', 'Valet service', 'Package handling', 'Guest services']
-    },
+   
     {
       id: 'parking',
       title: 'Reserved & Visitor Parking',
-      description: 'Secure underground parking with EV charging stations',
       category: 'services',
       image: '/images/parking.jpg',
-      features: ['Resident parking', 'Visitor slots', 'EV charging', '24/7 security']
+      features: ['Resident parking', 'Visitor slots',  '24/7 security']
     },
     {
       id: 'conference',
-      title: 'Executive Conference Room',
+      title: 'Common conference hall',
       description: 'Fully-equipped meeting space for business needs',
       category: 'business',
       image: '/images/confernce.jpg',
-      features: ['Video conferencing', 'High-speed WiFi', 'Catering available', 'AV equipment']
+      features: ['Video conferencing', 'High-speed WiFi',  'AV equipment']
     },
     {
       id: 'security',
       title: '24/7 Advanced Security',
-      description: 'Multi-layered security with biometric access',
+     
       category: 'security',
       image: '/images/cctv.jpg',
-      features: ['Biometric access', 'CCTV surveillance', 'Security personnel', 'Emergency response']
+      features: [ 'CCTV surveillance', 'Security personnel', 'Emergency response']
     },
     {
       id: 'lifts',
