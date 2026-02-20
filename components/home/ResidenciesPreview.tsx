@@ -2,57 +2,164 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { motion, useInView, useAnimation } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 
 export default function ResidenciesPreview() {
+  const [activeCategory, setActiveCategory] = useState('all');
   const [activeIndex, setActiveIndex] = useState(0);
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
+  // New floor plan data structure
   const floorPlans = [
     {
-      type: 'Type A',
+      type: 'B',
+      floors: '1st B – 2nd Floor',
       size: '1,460 sq. ft.',
-      layout: '3 Bedroom + 2 Bathroom + Maid\'s Room',
-      description: 'Spacious corner unit with optimal natural light and panoramic views.',
-      image: '/images/A.png',
-    },
-    {
-      type: 'Type B',
-      size: '1,406 sq. ft.',
-      layout: '3 Bedroom + 2 Bathroom + Maid\'s Room',
-      description: 'Efficient layout maximizing space and functionality.',
+      layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
+      category: 'Premium',
       image: '/images/B.png',
     },
     {
-      type: 'Type C',
-      size: '1,377 sq. ft.',
-      layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
-      description: 'Well-proportioned family residence with ample storage.',
+      type: 'B',
+      floors: '5th B – 6th Floor',
+      size: '1,460 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
+      category: 'Premium',
+      image: '/images/B.png',
+    },
+    {
+      type: 'C',
+      floors: '5th C – 6th Floor',
+      size: '1,406 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
+      category: 'Premium',
       image: '/images/C.png',
     },
     {
-      type: 'Type D',
+      type: 'D',
+      floors: '1st D – 2nd Floor',
       size: '1,377 sq. ft.',
-      layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
-      description: 'Corner unit featuring enhanced privacy and cross-ventilation.',
+      layout: '3 Bed, 2 Bath, Maid\'s Toilet',
+      category: 'Standard',
       image: '/images/D.png',
+    },
+    {
+      type: 'D',
+      floors: '2nd D – 3rd Floor',
+      size: '1,377 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Toilet',
+      category: 'Standard',
+      image: '/images/D.png',
+    },
+    {
+      type: 'D',
+      floors: '3rd D – 4th Floor',
+      size: '1,377 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Toilet',
+      category: 'Standard',
+      image: '/images/D.png',
+    },
+    {
+      type: 'D',
+      floors: '5th D – 6th Floor',
+      size: '1,377 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Toilet',
+      category: 'Standard',
+      image: '/images/D.png',
+    },
+    {
+      type: 'D',
+      floors: '6th D – 7th Floor',
+      size: '1,377 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Toilet',
+      category: 'Standard',
+      image: '/images/D.png',
+    },
+    {
+      type: 'E',
+      floors: '1st E – 2nd Floor',
+      size: '1,439 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Toilet',
+      category: 'Premium',
+      image: '/images/E.png',
+    },
+    {
+      type: 'G',
+      floors: '6th G – 7th Floor',
+      size: '1,219 sq. ft.',
+      layout: '3 Bedrooms, 2 Bathrooms',
+      category: 'Compact',
+      image: '/images/G.png',
+    },
+    {
+      type: 'H',
+      floors: '3rd H – 4th Floor',
+      size: '1,252 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
+      category: 'Premium Compact',
+      image: '/images/H.png',
+    },
+    {
+      type: 'H',
+      floors: '5th H – 6th Floor',
+      size: '1,252 sq. ft.',
+      layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
+      category: 'Premium Compact',
+      image: '/images/H.png',
     }
   ];
 
-  const interiorFeatures = [
-    'Premium Kitchen Finishes',
-    'Built-in Wardrobes',
-    'Hot Water Supply',
-    'Lanka Tiles Flooring',
-    'A/C in All Bedrooms',
-    'Premium Bathroom Fittings'
+  // Category definitions
+  const categories = [
+    {
+      id: 'all',
+      name: 'All Residences',
+      description: 'Complete collection of thoughtfully designed homes',
+      count: floorPlans.length
+    },
+    {
+      id: 'premium',
+      name: 'Premium Series',
+      description: 'Spacious living with maid\'s quarters',
+      features: ['Maid\'s Room with Toilet', '1,406 - 1,460 sq. ft.', 'Premium Finishes'],
+      count: floorPlans.filter(p => p.category === 'Premium').length
+    },
+    {
+      id: 'standard',
+      name: 'Standard Series',
+      description: 'Efficient family homes with maid\'s toilet',
+      features: ['Maid\'s Toilet', '1,377 sq. ft.', 'Optimized Layout'],
+      count: floorPlans.filter(p => p.category === 'Standard').length
+    },
+    {
+      id: 'compact',
+      name: 'Compact Series',
+      description: 'Smart, space-efficient designs',
+      features: ['1,219 - 1,252 sq. ft.', '3 Bedrooms', 'Modern Configuration'],
+      count: floorPlans.filter(p => ['Compact', 'Premium Compact'].includes(p.category)).length
+    }
   ];
 
-  const containerVariants = {
+  // Filter floor plans based on active category
+  const filteredPlans = activeCategory === 'all' 
+    ? floorPlans 
+    : floorPlans.filter(plan => {
+        if (activeCategory === 'premium') return plan.category === 'Premium';
+        if (activeCategory === 'standard') return plan.category === 'Standard';
+        if (activeCategory === 'compact') return ['Compact', 'Premium Compact'].includes(plan.category);
+        return true;
+      });
+
+  // Update active index when filter changes
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [activeCategory]);
+
+  // Properly typed variants
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -63,27 +170,27 @@ export default function ResidenciesPreview() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring" as const,
+        type: "spring",
         stiffness: 100,
         damping: 12
       }
     }
   };
 
-  const imageVariants = {
+  const imageVariants: Variants = {
     hidden: { scale: 0.9, opacity: 0, rotateY: -10 },
     visible: {
       scale: 1,
       opacity: 1,
       rotateY: 0,
       transition: {
-        type: "spring" as const,
+        type: "spring",
         stiffness: 100,
         damping: 15,
         delay: 0.4
@@ -91,40 +198,17 @@ export default function ResidenciesPreview() {
     }
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { scale: 0.95, opacity: 0 },
     visible: {
       scale: 1,
       opacity: 1,
       transition: {
-        type: "spring" as const,
+        type: "spring",
         stiffness: 100,
         damping: 15
       }
     }
-  };
-
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut" as const
-    }
-  };
-
-  const statsVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: (i: number) => ({
-      scale: 1,
-      opacity: 1,
-      transition: {
-        delay: i * 0.1 + 0.6,
-        type: "spring" as const,
-        stiffness: 100,
-        damping: 10
-      }
-    })
   };
 
   useEffect(() => {
@@ -149,7 +233,7 @@ export default function ResidenciesPreview() {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "linear" as const
+            ease: "linear"
           }}
         />
         <motion.div
@@ -161,7 +245,7 @@ export default function ResidenciesPreview() {
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "linear" as const
+            ease: "linear"
           }}
         />
       </div>
@@ -172,13 +256,13 @@ export default function ResidenciesPreview() {
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <motion.span 
             variants={itemVariants}
             className="inline-block text-sm tracking-[0.3em] text-gray-500 mb-4"
           >
-            FLOOR PLANS
+            RESIDENCES
           </motion.span>
           <motion.h2 
             variants={itemVariants}
@@ -188,15 +272,89 @@ export default function ResidenciesPreview() {
               mb-6
             "
           >
-            Thoughtfully Designed Residences
+            Choose Your Perfect Home
           </motion.h2>
           <motion.p 
             variants={itemVariants}
             className="text-gray-600 max-w-2xl mx-auto text-lg"
           >
-            Explore our diverse range of meticulously crafted apartments, 
-            each designed to maximize space, light, and functionality.
+            From compact efficiency to premium spaciousness, find the residence 
+            that matches your lifestyle.
           </motion.p>
+        </motion.div>
+
+        {/* Category Explanation Section */}
+        <motion.div
+          initial="hidden"
+          animate={controls}
+          variants={containerVariants}
+          className="grid md:grid-cols-4 gap-4 mb-16"
+        >
+          {categories.map((category) => (
+            <motion.button
+              key={category.id}
+              variants={cardVariants}
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setActiveCategory(category.id)}
+              className={`
+                relative p-6 rounded-2xl text-left transition-all duration-300
+                border overflow-hidden group
+                ${activeCategory === category.id
+                  ? 'bg-white border-gray-300 shadow-lg'
+                  : 'bg-white/50 border-gray-200 hover:bg-white hover:shadow-md'
+                }
+              `}
+            >
+              {/* Animated background */}
+              <div className={`
+                absolute inset-0 bg-gradient-to-r from-gray-900/5 to-black/5 
+                translate-x-[-100%] group-hover:translate-x-0
+                transition-transform duration-500
+                ${activeCategory === category.id ? 'translate-x-0' : ''}
+              `} />
+              
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-medium text-gray-900">
+                    {category.name}
+                  </h3>
+                  <span className="
+                    text-sm px-2 py-1 rounded-full
+                    bg-gray-100 text-gray-700
+                  ">
+                    {category.count}
+                  </span>
+                </div>
+                
+                <p className="text-sm text-gray-600 mb-4">
+                  {category.description}
+                </p>
+
+                {category.features && (
+                  <div className="space-y-2">
+                    {category.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-xs text-gray-500">
+                        <div className="w-1 h-1 rounded-full bg-gray-400" />
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Active indicator */}
+              {activeCategory === category.id && (
+                <motion.div
+                  layoutId="activeCategory"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gray-900 to-black"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              )}
+            </motion.button>
+          ))}
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
@@ -207,168 +365,165 @@ export default function ResidenciesPreview() {
             variants={containerVariants}
             className="space-y-8"
           >
-            {/* Floor Plan Selector */}
-            <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
-              {floorPlans.map((plan, index) => (
-                <motion.button
-                  key={plan.type}
-                  onClick={() => setActiveIndex(index)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  variants={cardVariants}
-                  className={`
-                    p-6 rounded-2xl border transition-all duration-300
-                    relative overflow-hidden group
-                    ${activeIndex === index 
-                      ? 'bg-white border-gray-300 shadow-lg' 
-                      : 'bg-gray-50/50 border-gray-200 hover:bg-white hover:shadow-md'
-                    }
-                  `}
-                >
-                  {/* Animated background */}
-                  <div className={`
-                    absolute inset-0 bg-gradient-to-r from-gray-900/5 to-black/5 
-                    translate-x-[-100%] group-hover:translate-x-0
-                    transition-transform duration-500
-                    ${activeIndex === index ? 'translate-x-0' : ''}
-                  `} />
-                  
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-xl font-light text-gray-900">
-                        {plan.type}
-                      </h3>
-                      <span className={`
-                        text-sm font-medium px-3 py-1 rounded-full
-                        transition-all duration-300
-                        ${activeIndex === index 
-                          ? 'text-white bg-gradient-to-r from-gray-900 to-black' 
-                          : 'text-gray-700 bg-gray-100'
-                        }
-                      `}>
-                        {plan.size}
-                      </span>
+            {/* Floor Plan Selector - Now showing filtered plans */}
+            <motion.div 
+              variants={itemVariants} 
+              className="space-y-3 max-h-[500px] overflow-y-auto pr-4"
+              style={{
+                scrollbarWidth: 'thin',
+                scrollbarColor: '#888 #f1f1f1'
+              }}
+            >
+              <div className="grid grid-cols-1 gap-3">
+                {filteredPlans.map((plan, index) => (
+                  <motion.button
+                    key={`${plan.type}-${plan.floors}`}
+                    onClick={() => setActiveIndex(index)}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    variants={cardVariants}
+                    className={`
+                      p-5 rounded-xl border transition-all duration-300
+                      relative overflow-hidden group text-left
+                      ${activeIndex === index 
+                        ? 'bg-white border-gray-300 shadow-md' 
+                        : 'bg-gray-50/50 border-gray-200 hover:bg-white hover:shadow-sm'
+                      }
+                    `}
+                  >
+                    {/* Animated background */}
+                    <div className={`
+                      absolute inset-0 bg-gradient-to-r from-gray-900/5 to-black/5 
+                      translate-x-[-100%] group-hover:translate-x-0
+                      transition-transform duration-500
+                      ${activeIndex === index ? 'translate-x-0' : ''}
+                    `} />
+                    
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-lg font-light text-gray-900">
+                            Type {plan.type}
+                          </span>
+                          <span className="text-xs px-2 py-1 bg-gray-100 rounded-full text-gray-600">
+                            {plan.floors}
+                          </span>
+                        </div>
+                        <span className={`
+                          text-sm font-medium px-3 py-1 rounded-full
+                          transition-all duration-300
+                          ${activeIndex === index 
+                            ? 'text-white bg-gradient-to-r from-gray-900 to-black' 
+                            : 'text-gray-700 bg-gray-100'
+                          }
+                        `}>
+                          {plan.size}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        {plan.layout}
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-600 text-left">
-                      {plan.layout}
-                    </p>
-                  </div>
-                </motion.button>
-              ))}
+                  </motion.button>
+                ))}
+              </div>
             </motion.div>
 
             {/* Active Plan Details */}
-            <motion.div 
-              variants={itemVariants}
-              whileHover={{ y: -5 }}
-              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden group"
-            >
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-              
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <motion.h3 
-                      key={activeIndex}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-2xl font-light text-gray-900 mb-2"
-                    >
-                      {floorPlans[activeIndex].type} Residence
-                    </motion.h3>
-                    <motion.p 
-                      key={`layout-${activeIndex}`}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: 0.1 }}
-                      className="text-gray-500 text-sm"
-                    >
-                      {floorPlans[activeIndex].layout}
-                    </motion.p>
-                  </div>
-                  <motion.span 
-                    key={`size-${activeIndex}`}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring" as const, stiffness: 200, damping: 15 }}
-                    className="
-                      bg-gradient-to-r from-gray-900 to-black
-                      text-white
-                      px-4 py-2
-                      rounded-full
-                      text-sm font-medium
-                      shadow-md
-                    "
-                  >
-                    {floorPlans[activeIndex].size}
-                  </motion.span>
-                </div>
-
-                <motion.p 
-                  key={`desc-${activeIndex}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                  className="text-gray-600 mb-8"
-                >
-                  {floorPlans[activeIndex].description}
-                </motion.p>
-
-                {/* Quick Features */}
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  {interiorFeatures.map((feature, idx) => (
-                    <motion.div 
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: 0.3 + idx * 0.05 }}
-                      className="flex items-center gap-3"
-                    >
-                      <div className="
-                        w-2 h-2 
-                        rounded-full 
+            {filteredPlans.length > 0 && (
+              <motion.div 
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm relative overflow-hidden group"
+              >
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <motion.h3 
+                        key={activeIndex}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-2xl font-light text-gray-900 mb-2"
+                      >
+                        Type {filteredPlans[activeIndex].type} Residence
+                      </motion.h3>
+                      <motion.p 
+                        key={`floor-${activeIndex}`}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                        className="text-gray-500 text-sm"
+                      >
+                        {filteredPlans[activeIndex].floors}
+                      </motion.p>
+                    </div>
+                    <motion.span 
+                      key={`size-${activeIndex}`}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                      className="
                         bg-gradient-to-r from-gray-900 to-black
-                        flex-shrink-0
-                      " />
-                      <span className="text-sm text-gray-700">{feature}</span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <Link href="/residences" className="block">
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="
-                      group inline-flex items-center gap-2
-                      text-gray-900 font-medium
-                      px-6 py-3
-                      bg-gray-50
-                      rounded-full
-                      border border-gray-200
-                      transition-all duration-300
-                      hover:bg-gray-100 hover:border-gray-300
-                      hover:shadow-md
-                      cursor-pointer
-                      w-full justify-center
-                      relative overflow-hidden
-                    "
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-600" />
-                    <span className="relative z-10">View All Floor Plans</span>
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="relative z-10"
+                        text-white
+                        px-4 py-2
+                        rounded-full
+                        text-sm font-medium
+                        shadow-md
+                      "
                     >
-                      →
+                      {filteredPlans[activeIndex].size}
                     </motion.span>
+                  </div>
+
+                  <motion.div 
+                    key={`layout-${activeIndex}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    className="bg-gray-50 p-4 rounded-xl mb-6"
+                  >
+                    <p className="text-gray-700">
+                      {filteredPlans[activeIndex].layout}
+                    </p>
                   </motion.div>
-                </Link>
-              </div>
-            </motion.div>
+
+                  <Link href="/residences" className="block">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="
+                        group inline-flex items-center gap-2
+                        text-gray-900 font-medium
+                        px-6 py-3
+                        bg-gray-50
+                        rounded-full
+                        border border-gray-200
+                        transition-all duration-300
+                        hover:bg-gray-100 hover:border-gray-300
+                        hover:shadow-md
+                        cursor-pointer
+                        w-full justify-center
+                        relative overflow-hidden
+                      "
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-600" />
+                      <span className="relative z-10">View All Floor Plans</span>
+                      <motion.span
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="relative z-10"
+                      >
+                        →
+                      </motion.span>
+                    </motion.div>
+                  </Link>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
 
           {/* Right Column - Floor Plan Image */}
@@ -378,59 +533,69 @@ export default function ResidenciesPreview() {
             variants={containerVariants}
             className="relative"
           >
-            <motion.div
-              variants={imageVariants}
-              animate={floatingAnimation}
-              className="
-                relative 
-                aspect-[4/3] lg:aspect-square
-                rounded-3xl 
-                overflow-hidden
-                shadow-2xl
-                group
-                bg-gradient-to-br from-gray-50 to-white
-                border border-gray-200
-              "
-            >
+            {filteredPlans.length > 0 && (
               <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
+                variants={imageVariants}
+                animate={{
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="
+                  relative 
+                  aspect-[4/3] lg:aspect-square
+                  rounded-3xl 
+                  overflow-hidden
+                  shadow-2xl
+                  group
+                  bg-gradient-to-br from-gray-50 to-white
+                  border border-gray-200
+                "
               >
-                <Image
-                  src={floorPlans[activeIndex].image}
-                  alt={`${floorPlans[activeIndex].type} floor plan - ${floorPlans[activeIndex].size}`}
-                  fill
-                  className="object-contain p-8 transition-all duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={activeIndex === 0}
-                />
-              </motion.div>
-              
-              {/* Glossy overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              {/* Interactive Dots */}
-              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2">
-                {floorPlans.map((_, index) => (
-                  <motion.button
-                    key={index}
-                    onClick={() => setActiveIndex(index)}
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`
-                      w-3 h-3 rounded-full transition-all duration-300
-                      ${activeIndex === index 
-                        ? 'bg-gray-900' 
-                        : 'bg-gray-400 hover:bg-gray-600'
-                      }
-                    `}
-                    aria-label={`View ${floorPlans[index].type} floor plan`}
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={filteredPlans[activeIndex].image}
+                    alt={`Type ${filteredPlans[activeIndex].type} floor plan - ${filteredPlans[activeIndex].size}`}
+                    fill
+                    className="object-contain p-8 transition-all duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={activeIndex === 0}
                   />
-                ))}
-              </div>
-            </motion.div>
+                </motion.div>
+                
+                {/* Glossy overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Interactive Dots */}
+                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2">
+                  {filteredPlans.map((_, index) => (
+                    <motion.button
+                      key={index}
+                      onClick={() => setActiveIndex(index)}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      className={`
+                        w-2 h-2 rounded-full transition-all duration-300
+                        ${activeIndex === index 
+                          ? 'bg-gray-900 w-4' 
+                          : 'bg-gray-400 hover:bg-gray-600'
+                        }
+                      `}
+                      aria-label={`View floor plan ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            )}
             
             {/* Decorative floating elements */}
             <motion.div
@@ -441,7 +606,7 @@ export default function ResidenciesPreview() {
               transition={{
                 duration: 6,
                 repeat: Infinity,
-                ease: "easeInOut" as const
+                ease: "easeInOut"
               }}
               className="
                 absolute -top-4 -right-4 
@@ -461,7 +626,7 @@ export default function ResidenciesPreview() {
               transition={{
                 duration: 7,
                 repeat: Infinity,
-                ease: "easeInOut" as const,
+                ease: "easeInOut",
                 delay: 0.5
               }}
               className="
@@ -484,19 +649,19 @@ export default function ResidenciesPreview() {
           variants={containerVariants}
           className="
             mt-20
-            grid md:grid-cols-3 gap-8
+            grid md:grid-cols-4 gap-8
             text-center
           "
         >
           {[
-            { value: '4', label: 'Floor Plan Types' },
-            { value: '1,377 - 1,460', label: 'Square Feet Range' },
-            { value: '3', label: 'Bedrooms Standard' }
+            { value: '12', label: 'Floor Plan Options' },
+            { value: '5', label: 'Unit Types' },
+            { value: '1,219 - 1,460', label: 'Square Feet Range' },
+            { value: '7', label: 'Floor Levels' }
           ].map((stat, index) => (
             <motion.div 
               key={stat.label}
-              custom={index}
-              variants={statsVariants}
+              variants={cardVariants}
               whileHover={{ scale: 1.05 }}
               className="space-y-3 p-8 rounded-2xl bg-gradient-to-b from-white to-gray-50/50 border border-gray-100 shadow-sm"
             >
@@ -562,7 +727,7 @@ export default function ResidenciesPreview() {
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
-                Explore All Residences
+                Schedule a Viewing
                 <span className="
                   inline-block transform transition-transform duration-500
                   group-hover:translate-x-2 group-hover:scale-110
