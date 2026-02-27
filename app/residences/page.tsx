@@ -9,7 +9,7 @@ export default function ResidencesPage() {
       size: '1,460 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Room & Toilet',
       description: 'Spacious corner unit with optimal natural light and panoramic views.',
-      image: '/images/A.png',
+      image: '/images/UNIT A-R1_page-0001.jpg',
       features: [
         'Open-plan living & dining',
         'Private balcony access from living room',
@@ -19,10 +19,10 @@ export default function ResidencesPage() {
     },
     {
       type: 'Type B',
-      size: '1,406 sq. ft.',
+      size: '1,460 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Room & Toilet',
       description: 'Efficient layout maximizing space and functionality.',
-      image: '/images/B.png',
+      image: '/images/UNIT B-R1_page-0001.jpg',
       features: [
         'Separate utility area',
         'Built-in kitchen cabinets',
@@ -32,10 +32,10 @@ export default function ResidencesPage() {
     },
     {
       type: 'Type C',
-      size: '1,377 sq. ft.',
+      size: '1,406 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
       description: 'Well-proportioned family residence with ample storage.',
-      image: '/images/C.png',
+      image: '/images/UNIT C-R1_page-0001.jpg',
       features: [
         'Granite kitchen countertops',
         'Premium sanitary fittings',
@@ -48,12 +48,51 @@ export default function ResidencesPage() {
       size: '1,377 sq. ft.',
       layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
       description: 'Corner unit featuring enhanced privacy and cross-ventilation.',
-      image: '/images/D.png',
+      image: '/images/UNIT D-R1_page-0001.jpg',
       features: [
         'Extra-large living area',
         'Premium flooring throughout',
         'Dedicated study area',
         'Extended balcony space'
+      ]
+    },
+    {
+      type: 'Type E',
+      size: '1,439 sq. ft.',
+      layout: '3 Bedroom + 2 Bathroom + Maid\'s Toilet',
+      description: 'Elegant design with enhanced living spaces and premium finishes.',
+      image: '/images/UNIT E-R1_page-0001.jpg',
+      features: [
+        'Expansive living area',
+        'Designer kitchen with premium fittings',
+        'Master bedroom with en-suite',
+        'Private balcony access'
+      ]
+    },
+    {
+      type: 'Type F',
+      size: '1,350 sq. ft.',
+      layout: '3 Bedroom + 2 Bathroom',
+      description: 'Smart, space-efficient design perfect for modern families.',
+      image: '/images/UNIT F-R1_page-0001.jpg',
+      features: [
+        'Optimized layout for maximum space utilization',
+        'Modern kitchen with built-in cabinets',
+        'All bedrooms with A/C provisions',
+        'Elegant bathroom fixtures'
+      ]
+    },
+    {
+      type: 'Type H',
+      size: '1,252 sq. ft.',
+      layout: '3 Bedroom + 2 Bathroom + Maid\'s Room & Toilet',
+      description: 'Premium compact design with all the essential features.',
+      image: '/images/UNIT H-R1_page-0001.jpg',
+      features: [
+        'Efficient use of space',
+        'Maid\'s room with attached toilet',
+        'Modern kitchen layout',
+        'Quality finishes throughout'
       ]
     }
   ]
@@ -418,7 +457,7 @@ export default function ResidencesPage() {
             ))}
           </div>
 
-          {/* Pricing Note - UPDATED */}
+          {/* Pricing Note */}
           <div className="
             mt-20
             bg-gradient-to-r from-gray-50 to-gray-100/50
@@ -467,7 +506,7 @@ export default function ResidencesPage() {
         </div>
       </section>
 
-      {/* CTA Section - UPDATED (Removed Request Floor Plans button) */}
+      {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-gray-900 to-black text-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="

@@ -12,7 +12,7 @@ export default function ResidenciesPreview() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
-  // New floor plan data structure
+  // New floor plan data structure with local image paths
   const floorPlans = [
     {
       type: 'B',
@@ -20,7 +20,7 @@ export default function ResidenciesPreview() {
       size: '1,460 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
       category: 'Premium',
-      image: '/images/B.png',
+      image: '/images/UNIT B-R1_page-0001.jpg',
     },
     {
       type: 'B',
@@ -28,7 +28,7 @@ export default function ResidenciesPreview() {
       size: '1,460 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
       category: 'Premium',
-      image: '/images/B.png',
+      image: '/images/UNIT B-R1_page-0001.jpg',
     },
     {
       type: 'C',
@@ -36,7 +36,7 @@ export default function ResidenciesPreview() {
       size: '1,406 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
       category: 'Premium',
-      image: '/images/C.png',
+      image: '/images/UNIT C-R1_page-0001.jpg',
     },
     {
       type: 'D',
@@ -44,7 +44,7 @@ export default function ResidenciesPreview() {
       size: '1,377 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Toilet',
       category: 'Standard',
-      image: '/images/D.png',
+      image: '/images/UNIT D-R1_page-0001.jpg',
     },
     {
       type: 'D',
@@ -52,7 +52,7 @@ export default function ResidenciesPreview() {
       size: '1,377 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Toilet',
       category: 'Standard',
-      image: '/images/D.png',
+      image: '/images/UNIT D-R1_page-0001.jpg',
     },
     {
       type: 'D',
@@ -60,7 +60,7 @@ export default function ResidenciesPreview() {
       size: '1,377 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Toilet',
       category: 'Standard',
-      image: '/images/D.png',
+      image: '/images/UNIT D-R1_page-0001.jpg',
     },
     {
       type: 'D',
@@ -68,7 +68,7 @@ export default function ResidenciesPreview() {
       size: '1,377 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Toilet',
       category: 'Standard',
-      image: '/images/D.png',
+      image: '/images/UNIT D-R1_page-0001.jpg',
     },
     {
       type: 'D',
@@ -76,7 +76,7 @@ export default function ResidenciesPreview() {
       size: '1,377 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Toilet',
       category: 'Standard',
-      image: '/images/D.png',
+      image: '/images/UNIT D-R1_page-0001.jpg',
     },
     {
       type: 'E',
@@ -84,7 +84,7 @@ export default function ResidenciesPreview() {
       size: '1,439 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Toilet',
       category: 'Premium',
-      image: '/images/E.png',
+      image: '/images/UNIT E-R1_page-0001.jpg',
     },
     {
       type: 'G',
@@ -92,7 +92,7 @@ export default function ResidenciesPreview() {
       size: '1,219 sq. ft.',
       layout: '3 Bedrooms, 2 Bathrooms',
       category: 'Compact',
-      image: '/images/G.png',
+      image: '/images/UNIT G-R1_page-0001.jpg',
     },
     {
       type: 'H',
@@ -100,7 +100,7 @@ export default function ResidenciesPreview() {
       size: '1,252 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
       category: 'Premium Compact',
-      image: '/images/H.png',
+      image: '/images/UNIT H-R1_page-0001.jpg',
     },
     {
       type: 'H',
@@ -108,7 +108,7 @@ export default function ResidenciesPreview() {
       size: '1,252 sq. ft.',
       layout: '3 Bed, 2 Bath, Maid\'s Room & Toilet',
       category: 'Premium Compact',
-      image: '/images/H.png',
+      image: '/images/UNIT H-R1_page-0001.jpg',
     }
   ];
 
